@@ -29,8 +29,13 @@ Each module folder has its own `README.md` with the list of exercises.
 ├── module00/
 │   ├── README.md
 │   ├── ex0/
+|   ├── ex1/
+|   ├── ex2/
 │   └── ...
 ├── module01/
+|   ├── README.md
+│   ├── ex0/
+│   └── ...
 └── ...
 ```
 
