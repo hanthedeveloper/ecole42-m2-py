@@ -1,0 +1,67 @@
+try:
+    raise Exception('spam', 'eggs')
+except Exception as inst:
+    print(type(inst))    # the exception type
+    print(inst.args)     # arguments stored in .args
+    print(inst)          # __str__ allows args to be printed directly,
+                         # but may be overridden in exception subclasses
+    x, y = inst.args     # unpack args
+    print('x =', x)
+    print('y =', y)
+
+<class 'Exception'>
+('spam', 'eggs')
+('spam', 'eggs')
+x = spam
+y = eggs
+
+for arg in sys.argv[1:]:
+    try:
+        f = open(arg, 'r')
+    except OSError:
+        print('cannot open', arg)
+    else:
+        print(arg, 'has', len(f.readlines()), 'lines')
+        f.close()
+
+bazen "Eğer kullanıcının girdiği sayı negatifse hata ver ve programı durdur"
+gibi kuralları kendimiz koymak isteriz. İşte bunu raise ile yaparız.
+
+Orada da __str__ çalışıyor, ama sen görmüyorsun çünkü name bir str nesnesi ve str sınıfının kendi __str__ metodu hazır geliyor. Bu metot yazının kendisini döndürür.
+
+python
+name = "merhaba"
+print(name)
+
+Arka planda olan şey:
+
+print(name) çağrılır.
+print, name nesnesine "kendini yazıya çevir" der, yani name.__str__() çağrılır.
+str.__str__ zaten yazı olduğu için aynen "merhaba" döndürür.
+print bunu ekrana basar.
+
+Bunu kendin de deneyebilirsin:
+
+python
+name = "merhaba"
+print(name.__str__())   # merhaba
+
+Diğer tipler de aynı:
+
+python
+print(25)       # int.__str__ çalışır, "25" olur
+print(3.5)      # float.__str__ çalışır, "3.5" olur
+print(True)     # bool.__str__ çalışır, "True" olur
+
+Python'daki her nesnenin bir __str__'ı vardır. Yerleşik tiplerde (str, int, float...) bu zaten yazılmış geliyor. Kendi sınıfında yazmazsan object'in varsayılan __str__'ı çalışır ve <__main__.Kedi object at 0x...> gibi anlamsız bir şey basar. Yani __str__ yazmak, "benim nesnem yazıya çevrilirken böyle görünsün" demektir.
+
+f-string'de de aynı:
+
+python
+print(f"{name}")
+
+{name} kısmı yerleştirilirken yine __str__ çağrılır. Not: senin yazdığın print(f{name}) hatalı, f-string tırnak ister: print(f"{name}").
+
+Exception ile bağlantısı:
+
+print(e) yazdığında e bir PlantError nesnesi olduğu için Exception.__str__ çalışıyor. O da args'taki mesajı döndürüyor. Yani name'in yazıyı olduğu gibi döndürmesiyle aynı mantık, sadece Exception sınıfı mesajı args'tan alıyor.
