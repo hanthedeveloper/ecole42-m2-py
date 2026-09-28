@@ -1,4 +1,4 @@
-# Garden Guardian
+# Garden Guardian - Module 02
 
 Each exercise is a small program that handles errors without crashing:
 `try`, `except`, `raise`, `finally`, built-in exceptions and custom
