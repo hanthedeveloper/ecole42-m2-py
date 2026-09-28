@@ -1,4 +1,4 @@
-# Code Cultivation
+# Code Cultivation - Module 01
 
 Each exercise builds a piece of a digital garden, going from a simple script
 to a small object-oriented system: `if __name__ == "__main__"`, classes,
