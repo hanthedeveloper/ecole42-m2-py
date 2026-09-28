@@ -18,6 +18,7 @@ exercise lives in its own `exN/` directory inside it.
 | 07 | `module07/` | TODO |
 | 08 | `module08/` | TODO |
 | 09 | `module09/` | TODO |
+| 10 | `module10/` | TODO |
 
 Each module folder has its own `README.md` with the list of exercises.
 
