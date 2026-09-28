@@ -1,4 +1,4 @@
-# Growing Code
+# Growing Code - Module 00
 
 Each exercise is a small function that reads input and prints a result:
 `print`, `input`, `int`, conditions, loops, recursion and type hints.
