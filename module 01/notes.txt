@@ -1,0 +1,147 @@
+nutri = 0
+
+loop = 0
+
+def age:
+    loop |= 0b1
+    if loop ==3
+        nutri +=1
+def grow:
+    loop |=2
+    if loop ==3
+        nutri +=1
+
+https://realpython.com/ref/glossary/static-method/
+Python, a static method is a method that belongs to a class but doesn’t operate on an instance 
+or the class itself.
+
+You define a static method using the @staticmethod decorator. Static methods don’t receive 
+an implicit self or cls argument. This means they can’t access or modify instance attributes or class attributes. The Python runtime enforces this behavior by not passing the instance or class object as an argument.
+
+You often use static methods for utility functions that logically belong to a class but don’t 
+require access to any instance or class-level data. They help organize code by keeping related
+functionality within a class.
+
+Python'da statik metotları hem sınıf adı üzerinden (Calculator.subtract()) hem de nesne üzerinden (calculator.subtract())
+çağırabilirsiniz. Python buna teknik olarak izin verir.
+
+
+https://www.geeksforgeeks.org/python/classmethod-in-python/
+@classmethod is used to create a method that works with the class instead of an object instance. A class method receives the class itself as the first argument using cls. It is commonly used to access class variables,
+create factory methods and perform operations related to the class.
+
+Whenever the class is being initiated, a method namely __init__() is always executed.
+An __init__() method is used to assign the values to object properties or to perform the
+other method that is required to complete when the object is created.
+
+
+'__module__': '__main__'
+Ne anlama gelir? Bu sınıfın hangi modül içinde tanımlandığını gösterir.
+__main__, kodu doğrudan çalıştırdığınız ana dosya (script) demektir.
+Eğer bu sınıf başka bir dosyada yazılıp içe aktarılsaydı (import edilseydi),
+burada o dosyanın adı yazardı.
+
+'__firstlineno__': 1
+Ne anlama gelir? Sınıfın Python dosyasında kaç numaralı satırda başladığını
+belirtir 
+(class Araba: satırı). Bu bilgi hata ayıklama (debugging) için kullanılır.
+
+'tekerlek_sayisi': 4
+Ne anlama gelir? Sınıf seviyesinde tanımladığınız sınıf niteliğidir (class attribute).
+Bu sınıftan türetilen tüm arabalar (nesneler) bu bilgiye ortak olarak erişebilir.
+
+'__init__': <function Araba.__init__ at 0x727aa0407110>
+Ne anlama gelir? Sınıfın kurucu (yapıcı) fonksiyonudur.
+Yeni bir nesne üretilirken çalışan __init__ metodunun bellekteki (RAM) adresini
+gösterir.
+
+'__static_attributes__': ('marka', 'renk')
+Ne anlama gelir? Python'un son sürümlerinde gelen bu alan, bu sınıfın
+nesnelerinde kullanılacağı baştan bilinen veya optimize edilmek istenen
+statik niteliklerin isimlerini tuple içinde tutar.
+
+'__dict__': <attribute '__dict__' of 'Araba' objects>
+Ne anlama gelir? Söz konusu sınıf nesnelerinin kendi __dict__ alanına erişmeyi
+sağlayan özel bir tanımlayıcıdır (descriptor). Sınıfın kendi sözlüğünün içinde,
+nesnelerin sözlüğüne işaret eden bir referanstır.
+
+'__weakref__': <attribute '__weakref__' of 'Araba' objects>
+Ne anlama gelir? Zayıf referans (weak reference) mekanizması için Python'un
+sınıfa eklediği özel bir alandır. Çöp toplayıcının (garbage collector) nesneleri
+hafızadan güvenle silmesine yardımcı olur.
+
+'__doc__': None
+Ne anlama gelir? Sınıfın dokümantasyon (açıklama) dizesidir.
+Eğer sınıfın hemen altına üç tırnakla ("""Bu bir araba sınıfıdır""")
+bir açıklama yazsaydınız, None yerine o yazı görünürdü. Şu an açıklama
+yazılmadığı için None (hiçbir şey) değerindedir.
+
+
+import math
+
+print(isinstance(42, object))           # True (Tam sayı bir nesnedir)
+print(isinstance("merhaba", object))    # True (Metin bir nesnedir)
+print(isinstance(True, object))         # True (Boolean bir nesnedir)
+print(isinstance(print, object))        # True (Yerleşik print fonksiyonu bile bir nesnedir!)
+print(isinstance(math, object))         # True (import ettiğin modül bile bir nesnedir!)
+print(isinstance(None, object))         # True (Hiçlik anlamına gelen None bile bir nesnedir!)
+
+Nesne, bir sınıftan somutlaştırılmış (instantiate edilmiş) gerçek bir varlıktır.
+Kendine ait bir bellek adresi ve kendine özgü state (durum) taşır.
+type(rose) → <class '__main__.Plant'> çıktısı, rose'un Plant sınıfının bir örneği
+olduğunu gösterir.
+
+Plant sınıfı, type adlı metaclass'ın bir instance'ıdır. Yani:
+
+rose = Plant(...) → rose, Plant'ın instance'ı
+Plant → type'ın instance'ı
+type → kendi kendinin instance'ı (type(type) is type)
+
+# 1. Sınıf çağrılabilir (callable) bir nesne olduğu için __call__ tetiklenir:
+# type.__call__(Flower, "Rose", 15.0, 10, "red")
+
+# 2. Önce boş nesne bellekte oluşturulur (__new__):
+# MRO zincirinde __new__ aranır (genellikle object.__new__ veya Flower.__new__)
+rose = object.__new__(Flower)
+
+# 3. Oluşan boş nesnenin türü doğru mu kontrol edilir ve __init__ tetiklenir:
+if isinstance(rose, Flower):
+    # Deskriptor protokolü ile __init__ nesneye bağlanır ve çağrılır:
+    type(rose).__dict__['__init__'].__get__(rose, Flower)("Rose", 15.0, 10, "red")
+
+# Artık rose değişkeni tam dolu bir instance'dır.
+
+__call__ Metoduna Sahip Özel Nesneler (Functor'lar): Eğer kendi yazdığın bir sınıfın içine
+def __call__(self): metodu eklersen, o sınıftan ürettiğin nesneleri de bir fonksiyon
+gibi çağırabilirsin!
+
+__dict__, en kısa ve net tanımıyla: Bir Python nesnesinin veya sınıfının sahip olduğu
+tüm nitelikleri (attribute) ve onların değerlerini saklayan yerleşik bir sözlük
+(dictionary) yapısıdır.
+
+2. Üç argümanla type(): dinamik sınıf oluşturma
+python
+type(name, bases, namespace)
+
+Bu, class anahtar kelimesinin runtime karşılığıdır. Yani:
+
+python
+class Plant:
+    def __init__(self, name):
+        self.name = name
+
+satırı, interpreter tarafından işlenirken tam olarak şuna denktir:
+
+python
+def __init__(self, name):
+    self.name = name
+
+Plant = type("Plant", (object,), {"__init__": __init__})
+
+Parametreler:
+
+name: sınıfın adı (string) → Plant.__name__ olur
+bases: kalıtım alınacak üst sınıfların tuple'ı → (object,), veya (Plant,) gibi
+namespace: sınıfın __dict__'ine gidecek attribute/method'ların dict'i
+
+type() verilen nesnenin hangi sınıfın instance'ı olduğunu döndürür. Saf bir sorgulama işlemidir, yeni bir şey oluşturmaz.
