@@ -65,3 +65,5 @@ print(f"{name}")
 Exception ile bağlantısı:
 
 print(e) yazdığında e bir PlantError nesnesi olduğu için Exception.__str__ çalışıyor. O da args'taki mesajı döndürüyor. Yani name'in yazıyı olduğu gibi döndürmesiyle aynı mantık, sadece Exception sınıfı mesajı args'tan alıyor.
+
+Python'da {e} ifadesi, oluşan hatanın (bu durumda ValueError) Python tarafından otomatik olarak üretilen orijinal hata mesajını tutar. print(f"Invalid parameter: {e}") yazdığınız için, Python'un kendi teknik açıklaması (invalid literal for int() with base 10: 'd') sizin yazdığınız metnin sonuna eklenir.
