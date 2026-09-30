@@ -1,0 +1,71 @@
+A tuple is a collection which is ordered and unchangeable.
+Tuples can also be created without the parentheses:
+
+thistuple = "apple", "banana", "cherry"
+print(thistuple)
+Tuple items are ordered, unchangeable, and allow duplicate values.
+
+Tuple items are indexed, the first item has index [0], the second item has index [1] etc.
+
+thistuple = ("apple",)
+print(type(thistuple))
+
+#NOT a tuple
+thistuple = ("apple")
+print(type(thistuple))
+
+-1 refers to the last item, -2 refers to the second last item etc.
+
+Example
+Print the last item of the tuple:
+
+thistuple = ("apple", "banana", "cherry")
+print(thistuple[-1]) # cherry
+
+To determine if a specified item is present in a tuple use the in keyword:
+
+Example
+Check if "apple" is present in the tuple:
+
+thistuple = ("apple", "banana", "cherry")
+if "apple" in thistuple:
+  print("Yes, 'apple' is in the fruits tuple")
+
+  Set Items
+Set items are unordered, unchangeable, and do not allow duplicate values.
+
+Unordered
+Unordered means that the items in a set do not have a defined order.
+
+Set items can appear in a different order every time you use them, and cannot be referred to by index or key.
+
+Unchangeable
+Set items are unchangeable, meaning that we cannot change the items after the set has been created.
+
+Once a set is created, you cannot change its items, but you can remove items and add new items.
+
+Duplicates Not Allowed
+Sets cannot have two items with the same value.
+
+set.difference(a, b) yazdığında birinci argüman "ana küme", ikinci argüman "çıkarılacak küme" demektir. Sonuç: a'da olup b'de olmayan elemanlar.
+
+Örnek
+python
+a = {1, 2, 3, 4}
+b = {3, 4, 5}
+
+print(set.difference(a, b))   # {1, 2}
+print(set.difference(b, a))   # {5}
+set.difference(a, b): a'dan başla, b'de bulunanları at, kalanı ver → {1, 2}
+set.difference(b, a): b'den başla, a'da bulunanları at, kalanı ver → {5}
+
+When we say that dictionaries are ordered, it means that the items have a defined order, and that order will not change.
+
+Unordered means that the items do not have a defined order, you cannot refer to an item by using an index.
+
+
+The code inside the function is not executed when they are first called, but are divided into steps, one step for each yield, and each step is only executed when iterated upon.
+
+Unlike the return keyword which stops further execution of the function, the yield keyword returns the result so far, and continues to the next step.
+
+The return value will be a list of values, one item for each yield.
