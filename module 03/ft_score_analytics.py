@@ -11,7 +11,6 @@ while i < l:
     except ValueError:
         print(f"Invalid parameter: '{sys.argv[i]}'")
     i += 1
-
 if len(newlist) == 0:
     print("No scores provided. Usage: python3 ft_score_analytics.py", end=" ")
     print("<score1> <score2> ...")
