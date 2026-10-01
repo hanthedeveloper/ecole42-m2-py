@@ -8,11 +8,9 @@ ACHIEVEMENTS = [
                 'Hidden Path Finder'
                 ]
 
-
 def gen_player_achievements() -> set[str]:
     t = random.randint(5, 9)
     return (set(random.sample(ACHIEVEMENTS, t)))
-
 
 print("=== Achievement Tracker System ===")
 print()

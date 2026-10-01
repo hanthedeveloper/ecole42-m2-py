@@ -12,7 +12,6 @@ ACHIEVEMENTS = [
 def gen_player_achievements() -> set[str]:
     t = random.randint(7, 15)
     return (set(random.sample(ACHIEVEMENTS, t)))
-
 print("=== Achievement Tracker System ===")
 print()
 steve = gen_player_achievements()

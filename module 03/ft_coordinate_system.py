@@ -15,7 +15,6 @@ def get_player_pos() -> tuple[float, float, float]:
             return (float(a), float(b), float(c))
         except ValueError as e:
             print(f"Error on parameter '{i}': {e}")
-
 print("=== Game Coordinate System ===")
 print()
 print("Get a first set of coordinates")

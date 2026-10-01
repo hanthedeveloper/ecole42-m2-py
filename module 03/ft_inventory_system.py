@@ -42,3 +42,4 @@ else:
     print(f"Item least abundant: {leasetab} with quantity {inv[leasetab]}")
     dict.update(inv, {'magic_item': 1})
     print("Updated inventory:", inv)
+
