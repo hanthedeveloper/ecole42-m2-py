@@ -69,3 +69,5 @@ The code inside the function is not executed when they are first called, but are
 Unlike the return keyword which stops further execution of the function, the yield keyword returns the result so far, and continues to the next step.
 
 The return value will be a list of values, one item for each yield.
+
+newlist = [expression for item in iterable if condition == True]
