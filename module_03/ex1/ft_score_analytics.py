@@ -2,10 +2,10 @@ import sys
 
 print("=== Player Score Analytics ===")
 
-l = len(sys.argv)
-newlist = []
+length = len(sys.argv)
+newlist: list[int] = []
 i = 1
-while i < l:
+while i < length:
     try:
         newlist = newlist + [int(sys.argv[i])]
     except ValueError:
@@ -19,6 +19,6 @@ else:
     print("Total players:", len(newlist))
     print("Total score:", sum(newlist))
     print("Average score:", (sum(newlist) / len(newlist)))
-    print("Highest score:", max(newlist))
-    print("Lowest score", min(newlist))
+    print("High score:", max(newlist))
+    print("Low score", min(newlist))
     print("Score range:", (max(newlist) - min(newlist)))

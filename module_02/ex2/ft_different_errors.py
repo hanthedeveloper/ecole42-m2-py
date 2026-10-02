@@ -7,8 +7,6 @@ def garden_operations(operation_number: int) -> None:
         open("/non/existent/file")
     elif operation_number == 3:
         "abc" + 5
-    else:
-        print("Operation completed successfully")
 
 
 def test_error_types() -> None:
@@ -26,9 +24,11 @@ def test_error_types() -> None:
             print(f"Caught FileNotFoundError: {e}")
         except TypeError as e:
             print(f"Caught TypeError: {e}")
+        else:
+            print("Operation completed successfully")
         i += 1
     print()
     print("All error types tested successfully!")
 
-if __name__ == "__main__":
-    test_error_types()
+
+test_error_types()

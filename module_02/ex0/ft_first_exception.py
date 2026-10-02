@@ -4,14 +4,15 @@ def input_temperature(temp_str: str) -> int:
 
 def test_temperature() -> None:
     print("=== Garden Temperature ===")
-    print(f"Input data is '25'")
+    print()
+    print("Input data is '25'")
     try:
         temp = input_temperature("25")
         print(f"Temperature is now {temp}°C")
     except Exception as e:
         print(f"Caught input_temperature error: {e}")
     print()
-    print(f"Input data is 'abc'")
+    print("Input data is 'abc'")
     try:
         temp = input_temperature("abc")
         print(f"Temperature is now {temp}°C")

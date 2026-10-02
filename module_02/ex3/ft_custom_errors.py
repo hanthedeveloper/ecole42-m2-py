@@ -3,7 +3,7 @@ class GardenError(Exception):
                 self,
                 mesg: str = "Unknown garden error"
                 ) -> None:
-        super().__init__(mesg)
+        Exception.__init__(self, mesg)
 
 
 class PlantError(GardenError):
@@ -11,7 +11,7 @@ class PlantError(GardenError):
                 self,
                 mesg: str = "Unknown plant error"
                 ) -> None:
-        super().__init__(mesg)
+        GardenError.__init__(self, mesg)
 
 
 class WaterError(GardenError):
@@ -19,7 +19,7 @@ class WaterError(GardenError):
                 self,
                 mesg: str = "Unknown water error"
                 ) -> None:
-        super().__init__(mesg)
+        GardenError.__init__(self, mesg)
 
 
 def plant_error() -> None:
@@ -56,6 +56,7 @@ def test_custom_errors() -> None:
         print(f"Caught GardenError: {e}")
     print()
     print("All custom error types work correctly!")
+
 
 if __name__ == "__main__":
     test_custom_errors()

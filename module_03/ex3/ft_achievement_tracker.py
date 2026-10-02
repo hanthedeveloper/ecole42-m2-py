@@ -1,17 +1,21 @@
 import random
 
+
 ACHIEVEMENTS = [
                 'Taking Inventory', 'Getting Wood', 'Benchmaking',
                 'Time to Mine!', 'Monster Hunter', 'Acquire Hardware',
                 'DIAMONDS!', 'Adventuring Time', 'Into The Nether', 'The Lie',
                 'Local Brewery', 'Iron Belly', 'Enchanter', 'Overpowered',
-                'Time to Farm!', 'Cheating Death', 'Zombie Doctor', 'Body Guard',
-                'The End?', 'Whatever Floats Your Goat'
+                'Time to Farm!', 'Cheating Death', 'Zombie Doctor',
+                'Body Guard', 'The End?', 'Whatever Floats Your Goat'
                 ]
+
 
 def gen_player_achievements() -> set[str]:
     t = random.randint(7, 15)
     return (set(random.sample(ACHIEVEMENTS, t)))
+
+
 print("=== Achievement Tracker System ===")
 print()
 steve = gen_player_achievements()
