@@ -18,10 +18,10 @@ class Plant:
 if __name__ == "__main__":
     print("=== Garden Plant Growth ===")
     flower = Plant()
-    flower.page = 10
+    flower.page = 30
     flower.rate = 0.8
     flower.name = "Rose"
-    flower.height = 35.4
+    flower.height = 25.0
     first_height = flower.height
     Plant.show(flower)
     for i in range(1, 8):

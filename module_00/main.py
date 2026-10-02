@@ -14,8 +14,12 @@ How it works:
 Make sure your exercise files are in the same folder as this main.py file!
 """
 
+import importlib
+import sys
+from typing import Callable
 
-def test_ft_exercise(exercise_file_name):
+
+def test_ft_exercise(exercise_file_name: str) -> None:
     """
     This function tries to run one of your exercises.
 
@@ -29,13 +33,14 @@ def test_ft_exercise(exercise_file_name):
     try:
         # Import your exercise file
         # This is like doing: import ft_plot_area
-        import sys
         sys.path.append(".")
-        ft_module = __import__(exercise_file_name)
+        ft_module = importlib.import_module(exercise_file_name)
 
         # Get the function from your file
         # This is like doing: ft_plot_area.ft_plot_area
-        ft_function = getattr(ft_module, exercise_file_name)
+        ft_function: Callable[..., None] = getattr(
+            ft_module, exercise_file_name
+        )
 
         # Special handling for ft_seed_inventory (Exercise 7)
         # This function takes parameters, unlike the others
@@ -57,8 +62,8 @@ def test_ft_exercise(exercise_file_name):
     except ImportError:
         print(f"❌ Could not find {exercise_file_name}.py")
         print(
-            """   Make sure your file exists and is in the same
-            folder as main.py"""
+            "   Make sure your file exists and is in the same "
+            "folder as main.py"
         )
 
     except AttributeError:
@@ -71,8 +76,8 @@ def test_ft_exercise(exercise_file_name):
         if exercise_file_name == "ft_seed_inventory":
             if "missing" in msg and "required positional argument" in msg:
                 print(
-                    """   For exercise 7, make sure your
-                    function takes parameters:"""
+                    "   For exercise 7, make sure your "
+                    "function takes parameters:"
                 )
                 print(
                     f"   def {exercise_file_name}"
@@ -86,7 +91,7 @@ def test_ft_exercise(exercise_file_name):
         print("   Check your code for syntax errors")
 
 
-def main():
+def main() -> None:
     """Run main function - this runs when you execute: python3 main.py ."""
     print("🌱 Welcome to Growing Code! 🌱")
     print("This helper will test your exercises for you.")
@@ -103,7 +108,7 @@ def main():
     print("a - test all exercises")
     print()
 
-    choice = input("Enter your choice: ")
+    choice: str = input("Enter your choice: ")
 
     # Test the exercise based on user choice
     if choice == "0":

@@ -44,8 +44,8 @@ if __name__ == "__main__":
     rose.show()
     print()
 
-    new_height = 0.0
-    new_age = 0
+    new_height = 25.0
+    new_age = 30
     rose.set_height(new_height)
     print(f"Height updated: {new_height}cm")
     rose.set_age(new_age)

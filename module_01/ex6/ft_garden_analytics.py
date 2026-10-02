@@ -11,7 +11,7 @@ class Plant:
         return self._stats
 
     @staticmethod
-    def check(age: int) -> int:
+    def check(age: int) -> bool:
         return age > 365
 
     @classmethod
@@ -79,11 +79,11 @@ class Flower(Plant):
 
     def show(self) -> None:
         super().show()
-        print(f"Color: {self.color}")
+        print(f" Color: {self.color}")
         if self._bloomed:
-            print(f"{self.name} is blooming beautifully!")
+            print(f" {self.name} is blooming beautifully!")
         else:
-            print(f"{self.name} has not bloomed yet")
+            print(f" {self.name} has not bloomed yet")
 
     def bloom(self) -> None:
         self._bloomed = True
@@ -135,7 +135,7 @@ class Tree(Plant):
 
     def show(self) -> None:
         super().show()
-        print(f"Trunk diameter: {self.trunk_diameter}cm")
+        print(f" Trunk diameter: {self.trunk_diameter}cm")
 
     def produce_shade(self) -> None:
         self._stats.add_shade()
@@ -161,8 +161,8 @@ class Vegetable(Plant):
 
     def show(self) -> None:
         super().show()
-        print(f"Harvest season: {self.harvest_season}")
-        print(f"Nutritional value: {self.nutritional_value}")
+        print(f" Harvest season: {self.harvest_season}")
+        print(f" Nutritional value: {self.nutritional_value}")
 
 
 def show_statistics(plant: Plant) -> None:
@@ -173,7 +173,7 @@ def show_statistics(plant: Plant) -> None:
 if __name__ == "__main__":
     print("=== Garden statistics ===")
 
-    print("\n=== Check year-old")
+    print("=== Check year-old")
     print(f"Is 30 days more than a year? -> {Plant.check(30)}")
     print(f"Is 400 days more than a year? -> {Plant.check(400)}")
 
