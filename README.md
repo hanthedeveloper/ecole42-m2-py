@@ -11,8 +11,8 @@ exercise lives in its own `exN/` directory inside it.
 | 00 | `module00/` | Growing Code: `print`, `input`, conditions, loops, recursion, type hints |
 | 01 | `module01/` | Code Cultivation: classes, encapsulation, inheritance, static and class methods |
 | 02 | `module02/` | Garden Guardian: `try`, `except`, `raise`, `finally`, custom exceptions |
-| 03 | `module03/` | TODO |
-| 04 | `module04/` | TODO |
+| 03 | `module03/` | Data Quest: lists, tuples, sets, dictionaries, generators, comprehensions, `sys.argv` |
+| 04 | `module04/` | Data Archivist: `open`, `read`, `write`, `sys.stdin`, `sys.stdout`, `sys.stderr`, `with` (context managers) |
 | 05 | `module05/` | TODO |
 | 06 | `module06/` | TODO |
 | 07 | `module07/` | TODO |
