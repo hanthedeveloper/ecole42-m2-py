@@ -1,0 +1,36 @@
+The open() function takes two parameters; filename, and mode.
+
+There are four different methods (modes) for opening a file:
+
+"r" - Read - Default value. Opens a file for reading, error if the file does not exist
+
+"a" - Append - Opens a file for appending, creates the file if it does not exist
+
+"w" - Write - Opens a file for writing, creates the file if it does not exist
+
+"x" - Create - Creates the specified file, returns an error if the file exists
+
+In addition you can specify if the file should be handled as binary or text mode
+
+"t" - Text - Default value. Text mode
+
+"b" - Binary - Binary mode (e.g. images)
+
+Because "r" for read, and "t" for text are the default values, you do not need to specify them.
+
+fd = open()
+print(fd)
+<_io.TextIOWrapper name='ancient_fragment.txt' mode='r' encoding='UTF-8'>
+
+size	Optional. The number of bytes to return. Default -1, which means the whole file.
+Split a string into a list where each word is a list item:
+
+txt = "welcome to the jungle"
+
+x = txt.split()
+
+print(x)
+
+Test: python3 ft_stream_management.py foo > out.txt çalıştır. Hata mesajı ekranda görünüyorsa ve out.txt boşsa (ya da hata mesajını içermiyorsa) doğru kanala yazıyorsun.
+
+print("Enter new file name (or empty): ", end="") yazdığında satır sonu olmadığı için Python çıktıyı tamponda bekletebilir ve readline() kullanıcıdan girdi beklerken prompt henüz ekrana çıkmamış olabilir.
