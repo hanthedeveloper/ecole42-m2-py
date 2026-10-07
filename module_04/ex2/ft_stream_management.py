@@ -21,12 +21,16 @@ else:
             try:
                 fd_orj.close()
             except OSError as e:
-                print(f"[STDERR] Error closing file '{sysçargv[1]}':", e, file=sys.stderr)
+                print(f"[STDERR] Error closing file '{sys.argv[1]}':", e, file=sys.stderr)
             else:
                 print(f"\nFile '{sys.argv[1]}' closed.")
         else:
-            fd_orj.close()
-            print(f"File '{sys.argv[1]}' closed.\n")
+            try:
+                fd_orj.close()
+            except OSError as e:
+                print(f"[STDERR] Error closing file '{sys.argv[1]}':", e, file=sys.stderr)
+            else:
+                print(f"File '{sys.argv[1]}' closed.\n")
             print("Transform data:")
             print("---\n")
             splitlist: list[str] = red.splitlines()

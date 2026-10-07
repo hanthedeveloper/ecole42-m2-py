@@ -34,3 +34,51 @@ print(x)
 Test: python3 ft_stream_management.py foo > out.txt çalıştır. Hata mesajı ekranda görünüyorsa ve out.txt boşsa (ya da hata mesajını içermiyorsa) doğru kanala yazıyorsun.
 
 print("Enter new file name (or empty): ", end="") yazdığında satır sonu olmadığı için Python çıktıyı tamponda bekletebilir ve readline() kullanıcıdan girdi beklerken prompt henüz ekrana çıkmamış olabilir.
+
+Buffer nedir? Python write() dediğinde veriyi hemen diske göndermez, önce RAM'deki bir tampona (buffer) koyar. Gerçek diske yazma işlemi daha sonra olur: tampon dolunca, flush() çağrılınca ya da close() sırasında. Bu yüzden write() hızlıdır ve çoğu zaman başarılı döner.
+
+When you enter a given context, the context manager’s .__enter__() method allocates the managed resources. When you exit the context, the .__exit__() method releases the resources and cleans up. 
+Why Do We Need Context Managers?
+Automatic cleanup: Frees resources like files or connections without manual effort.
+Avoid resource leaks: Ensures proper release, even if errors occur.
+Cleaner code: Replaces verbose try-finally blocks with with.
+Exception-safe: Always performs cleanup, even on exceptions.
+Custom control: Lets you manage any resource using __enter__ and __exit__.
+Evet, dosya nesnesinin __enter__ ve __exit__ metotları her zaman vardır. Bunlar open() ile oluşan nesnenin (io.TextIOWrapper) kendi metotlarıdır, with yazıp yazmaman bunu değiştirmez.
+
+Fark şu: with yazmazsan bu metotlar otomatik çağrılmaz. Onları çağıran şey with'in kendisidir. Sen fd = open(...) yazarsan nesne oluşur, metotlar orada durur ama kimse çağırmaz. Bu yüzden close()'u elle yazman gerekir.
+
+f = open("a.txt")      # __enter__ / __exit__ var ama çağrılmadı
+f.close()              # kapatmayı sen yapıyorsun
+
+with kullanınca Python bu iki metodu senin yerine, doğru zamanda çağırır. Dosya nesnesinin __exit__'i içinde de close() çalışır, yani with = "__exit__ çağrılmasını garanti et" demek.
+
+Bu arada __exit__'in dosya için yaptığı iş close() olduğundan, istersen f.__exit__(None, None, None) yazarak elle de çağırabilirsin ve dosya kapanır. Ama kimse böyle yazmaz, sırf mekanizmayı anlamak için bir bilgi.
+class ContextManager:
+    def __init__(self):
+        print('init method called')
+        
+    def __enter__(self):
+        print('enter method called')
+        return self
+    
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        print('exit method called')
+
+with ContextManager() as manager:
+    print('with statement block')
+Output:
+
+init method called
+enter method called
+with statement block
+exit method called
+
+Dosya örneğinde: __enter__() dosya nesnesinin kendisini döndürür. Yani with open(...) as f yazınca f, open()'ın döndürdüğü nesneyle aynı nesnedir. Bu yüzden "context manager = dosya nesnesi" gibi düşünmek kolay.
+Neden bunu okudun/anlaman gerekiyor? Şunu göstermek için: with X as Y yazdığında Y, X'in kendisi olmak zorunda değil, X.__enter__() ne döndürürse odur. Dosyalarda aynı nesne çıkıyor, ama genel kural bu.
+
+
+https://docs.python.org/3/builtins/stdtypes.html#contextmanager.__enter__
+
+contextmanager.__exit__(exc_type, exc_val, exc_tb)
+Exit the runtime context and return a Boolean flag indicating if any exception that occurred should be suppressed.
