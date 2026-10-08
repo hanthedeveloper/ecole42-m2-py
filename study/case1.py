@@ -50,8 +50,20 @@ print("sadece charlie", get_diff("charlie", invdict))
 Alice ve Charlie'nin konumunu karşılaştır. Aynı konumdalar mı? Tuple'lar == ile nasıl
 karşılaştırılıyor?
 Tuple + dict birlikte: Anahtarı konum, değeri o konumdaki oyuncuların listesi olan bir dict kur.
-Alice ve Charlie aynı konumda olduğu için aynı anahtara düşecekler. Bunu kurarken bir sorunla
-karşılaşmayacaksın, çünkü tuple hashable. Aynı şeyi liste anahtarıyla denersen ne olur?
-Dene ve hatayı gör.
-Exception: Alice'in konum tuple'ında x değerini değiştirmeyi dene. Çıkan hatayı try/except ile
-yakala ve mesajı yazdır. Programın çökmemesi gerekiyor. '''
+Alice ve Charlie aynı konumda olduğu için aynı anahtara düşecekler.
+'''
+
+import math
+
+res = math.sqrt((posdict["bob"][0] - posdict["alice"][0])**2 + (posdict["bob"][1] - posdict["alice"][1])**2)
+print(res)
+
+if posdict["alice"] == posdict["charlie"]:
+    print("alice ve charlie aynı konumda")
+
+newdict: dict[tuple[int, int], list[str]] = {}
+for k, v in posdict.items():
+    if v in newdict:
+        newdict[v].append(k)
+    else:
+        newdict[v] = [k]

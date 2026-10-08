@@ -19,3 +19,6 @@ Bir dict'i doğrudan döngüye verirsen Python sadece anahtarları dolaşır:
 python
 for x in invdict:
     print(x)   # alice, bob, charlie
+
+Python lists have a built-in list.sort() method that modifies the list in-place.
+There is also a sorted() built-in function that builds a new sorted list from an iterable.
