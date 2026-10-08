@@ -1,0 +1,21 @@
+* burada açma (unpacking) operatörü. Bir koleksiyonu, elemanları ayrı ayrı argümanmış gibi fonksiyona dağıtır.
+
+Önce şu iki çağrıyı karşılaştır:
+
+Çağrı	Fonksiyonun gördüğü
+print([1, 2, 3])	1 tane argüman: bir liste
+print(*[1, 2, 3])	3 tane argüman: 1, 2, 3
+
+items() bir sözlüğün anahtar-değer çiftlerini tek tek dolaşmanı sağlar. Her çift bir tuple olarak gelir: (anahtar, değer).
+
+Üç dict metodunu yan yana koyalım:
+
+Metod	Ne verir
+invdict.keys()	sadece anahtarlar: "alice", "bob", "charlie"
+invdict.values()	sadece değerler: üç set
+invdict.items()	çiftler: ("alice", {...}), ("bob", {...}), ...
+Bir dict'i doğrudan döngüye verirsen Python sadece anahtarları dolaşır:
+
+python
+for x in invdict:
+    print(x)   # alice, bob, charlie
