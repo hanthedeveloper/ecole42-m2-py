@@ -60,23 +60,33 @@ class TextProcessor(DataProcessor):
 class LogProcessor(DataProcessor):
     def validate(self, data: typing.Any) -> bool:
         if isinstance(data, list):
-            return all(isinstance(i, dict) for i in data)
+            return all(check_helper(i) for i in data)
         else:
-            return isinstance(data, dict)
+            return check_helper(data)
 
     def ingest(self, data: dict | list[dict[str, str]]) -> None:
         if not self.validate(data):
-            raise ValueError("Improper numeric data")
+            raise ValueError("Improper data")
         if isinstance(data, list):
-            self.wdata.extend(str(i) for i in data)
+            for i in data:
+                self.wdata.extend(i.keys())
+                self.wdata.extend(i.values())
         else:
             self.wdata.append(str(data))
+
+
+def check_helper(my_dict: dict) -> bool:
+    if isinstance(my_dict, dict):
+        return (all(isinstance(i, str) for i in my_dict.keys())
+        and all(isinstance(i, str) for i in my_dict.values()))
+    else:
+        return False
 
 
 if __name__ == "__main__":
     ex_num = NumericProcessor()
     ex_text = TextProcessor()
-    ex_log _ LogProcessor()
+    ex_log = LogProcessor()
 
     newlist = [0, 1, 2, 3, 4, 5, 6, 7]
 
