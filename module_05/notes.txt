@@ -49,3 +49,13 @@ check_helper öncesinde 1 boş satır var, 2 gerekiyor (E302).
 if __name__ öncesinde de 2 boş satır gerekiyor (E305).
 
 Sırayla: önce main’deki _ ve ex1 hatalarını düzelt, dosya çalışsın. Sonra Numeric’i test et, sonra Log’u. Log’un check_helper ve dönüşümünü yazıp tekrar at, bakarız.
+
+extend ve append farklı şeyler yapıyor:
+
+append(x): x’i listeye tek bir eleman olarak ekler.
+extend(iterable): iterable’ın içindeki her elemanı tek tek listeye ekler.
+python
+a = [1, 2]
+a.append([3, 4])   # [1, 2, [3, 4]]  -> liste içinde liste
+b = [1, 2]
+b.extend([3, 4])   # [1, 2, 3, 4]    -> elemanlar tek tek

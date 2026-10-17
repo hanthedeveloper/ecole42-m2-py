@@ -4,8 +4,7 @@ import abc
 class DataProcessor(abc.ABC):
     def __init__(self) -> None:
         self.wdata: list[str] = []
-        self.counter: int = 0
-        self.eleman: int = -1
+        self.counter: int = -1
 
     @abc.abstractmethod
     def validate(self, data: typing.Any) -> bool:
@@ -19,10 +18,10 @@ class DataProcessor(abc.ABC):
         try:
             popdata = self.wdata.pop(0)
         except IndexError:
-            pass
+            raise ValueError("no data to pop.")
         else:
-            self.eleman += 1
-        return (self.eleman, popdata)
+            self.counter += 1
+        return (self.counter, popdata)
 
 
 class NumericProcessor(DataProcessor):
@@ -67,13 +66,15 @@ class LogProcessor(DataProcessor):
     def ingest(self, data: dict | list[dict[str, str]]) -> None:
         if not self.validate(data):
             raise ValueError("Improper data")
-        if isinstance(data, list):
+        newlist = []
+        try:
+            if isinstance(data, dict):
+                data = [data]
             for i in data:
-                self.wdata.extend(i.keys())
-                self.wdata.extend(i.values())
-        else:
-            self.wdata.append(str(data))
-
+                newlist.append(i['log_level'] + ": " + i['log_message'])
+        except KeyError as e:
+            raise ValueError(e)
+        self.wdata.extend(newlist)
 
 def check_helper(my_dict: dict) -> bool:
     if isinstance(my_dict, dict):
