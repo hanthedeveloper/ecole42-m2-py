@@ -13,10 +13,8 @@ exercise lives in its own `exN/` directory inside it.
 | 02 | `module02/` | Garden Guardian: `try`, `except`, `raise`, `finally`, custom exceptions |
 | 03 | `module03/` | Data Quest: lists, tuples, sets, dictionaries, generators, comprehensions, `sys.argv` |
 | 04 | `module04/` | Data Archivist: `open`, `read`, `write`, `sys.stdin`, `sys.stdout`, `sys.stderr`, `with` (context managers) |
-| 05 | `module05/` | TODO |
-| 06 | `module06/` | TODO |
-| 07 | `module07/` | TODO |
-| 08 | `module08/` | TODO |
+| 06-08 | `module05-bis/` | TODO |
+| 05-07 | `module06-bis/` | TODO |
 | 09 | `module09/` | TODO |
 | 10 | `module10/` | TODO |
 
