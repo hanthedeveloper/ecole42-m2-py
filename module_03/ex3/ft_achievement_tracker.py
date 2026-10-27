@@ -2,7 +2,11 @@ import random
 
 
 ACHIEVEMENTS = [
-                'Taking Inventory', 'Getting Wood', 'Benchmaking',
+                'Crafting Genius', 'World Savior', 'Master Explorer',
+                'Collector Supreme', 'Untouchable', 'Boss Slayer',
+                'Strategist', 'Unstoppable', 'Speed Runner', 'Survivor',
+                'Treasure Hunter', 'First Steps', 'Sharp Mind',
+                'Hidden Path Finder', 'Taking Inventory', 'Getting Wood', 'Benchmaking',
                 'Time to Mine!', 'Monster Hunter', 'Acquire Hardware',
                 'DIAMONDS!', 'Adventuring Time', 'Into The Nether', 'The Lie',
                 'Local Brewery', 'Iron Belly', 'Enchanter', 'Overpowered',
@@ -12,31 +16,34 @@ ACHIEVEMENTS = [
 
 
 def gen_player_achievements() -> set[str]:
-    t = random.randint(7, 15)
+    t = random.randint(5, 9)
     return (set(random.sample(ACHIEVEMENTS, t)))
 
 
 print("=== Achievement Tracker System ===")
 print()
-steve = gen_player_achievements()
-alex = gen_player_achievements()
-noor = gen_player_achievements()
-kai = gen_player_achievements()
-print("player steve:", steve)
-print("player alex:", alex)
-print("player noor:", noor)
-print("player kai:", kai)
+alice = gen_player_achievements()
+bob = gen_player_achievements()
+charlie = gen_player_achievements()
+dylan = gen_player_achievements()
+print("Player Alice:", alice)
+print("Player Bob:", bob)
+print("Player Charlie:", charlie)
+print("Player Dylan:", dylan)
 print()
-print("all distinct achievements:", set.union(steve, alex, noor, kai))
+print("All distinct achievements:", set.union(alice, bob, charlie, dylan))
 print()
-print("common achievements:", set.intersection(steve, alex, noor, kai))
+print("Common achievements:", set.intersection(alice, bob, charlie, dylan))
 print()
-print("only steve has:", set.difference(steve, set.union(alex, noor, kai)))
-print("only alex has:", set.difference(alex, set.union(steve, noor, kai)))
-print("only noor has:", set.difference(noor, set.union(alex, steve, kai)))
-print("only kai has:", set.difference(kai, set.union(alex, noor, steve)))
+print("Only Alice has:", end=" ")
+print(set.difference(alice, set.union(bob, charlie, dylan)))
+print("Only Bob has:", end=" ")
+print(set.difference(bob, set.union(alice, charlie, dylan)))
+print("Only Charlie has:", end=" ")
+print(set.difference(charlie, set.union(alice, bob, dylan)))
+print("Only Dylan has:", set.difference(dylan, set.union(alice, bob, charlie)))
 print()
-print("steve is missing:", set.difference(set(ACHIEVEMENTS), steve))
-print("alex is missing:", set.difference(set(ACHIEVEMENTS), alex))
-print("noor is missing:", set.difference(set(ACHIEVEMENTS), noor))
-print("kai is missing:", set.difference(set(ACHIEVEMENTS), kai))
+print("Alice is missing:", set.difference(set(ACHIEVEMENTS), alice))
+print("Bob is missing:", set.difference(set(ACHIEVEMENTS), bob))
+print("Charlie is missing:", set.difference(set(ACHIEVEMENTS), charlie))
+print("Dylan is missing:", set.difference(set(ACHIEVEMENTS), dylan))

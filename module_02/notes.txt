@@ -27,7 +27,8 @@ for arg in sys.argv[1:]:
 bazen "Eğer kullanıcının girdiği sayı negatifse hata ver ve programı durdur"
 gibi kuralları kendimiz koymak isteriz. İşte bunu raise ile yaparız.
 
-Orada da __str__ çalışıyor, ama sen görmüyorsun çünkü name bir str nesnesi ve str sınıfının kendi __str__ metodu hazır geliyor. Bu metot yazının kendisini döndürür.
+Orada da __str__ çalışıyor, ama sen görmüyorsun çünkü name bir str nesnesi ve str sınıfının kendi __str__ metodu hazır geliyor.
+Bu metot yazının kendisini döndürür.
 
 python
 name = "merhaba"
@@ -53,17 +54,29 @@ print(25)       # int.__str__ çalışır, "25" olur
 print(3.5)      # float.__str__ çalışır, "3.5" olur
 print(True)     # bool.__str__ çalışır, "True" olur
 
-Python'daki her nesnenin bir __str__'ı vardır. Yerleşik tiplerde (str, int, float...) bu zaten yazılmış geliyor. Kendi sınıfında yazmazsan object'in varsayılan __str__'ı çalışır ve <__main__.Kedi object at 0x...> gibi anlamsız bir şey basar. Yani __str__ yazmak, "benim nesnem yazıya çevrilirken böyle görünsün" demektir.
+Python'daki her nesnenin bir __str__'ı vardır. Yerleşik tiplerde (str, int, float...) bu zaten yazılmış geliyor.
+Kendi sınıfında yazmazsan object'in varsayılan __str__'ı çalışır ve <__main__.Kedi object at 0x...> gibi anlamsız bir şey basar.
+Yani __str__ yazmak, "benim nesnem yazıya çevrilirken böyle görünsün" demektir.
 
 f-string'de de aynı:
 
 python
 print(f"{name}")
 
-{name} kısmı yerleştirilirken yine __str__ çağrılır. Not: senin yazdığın print(f{name}) hatalı, f-string tırnak ister: print(f"{name}").
+{name} kısmı yerleştirilirken yine __str__ çağrılır. 
+Not: senin yazdığın print(f{name}) hatalı, f-string tırnak ister: print(f"{name}").
 
 Exception ile bağlantısı:
 
-print(e) yazdığında e bir PlantError nesnesi olduğu için Exception.__str__ çalışıyor. O da args'taki mesajı döndürüyor. Yani name'in yazıyı olduğu gibi döndürmesiyle aynı mantık, sadece Exception sınıfı mesajı args'tan alıyor.
+print(e) yazdığında e bir PlantError nesnesi olduğu için Exception.__str__ çalışıyor.
+O da args'taki mesajı döndürüyor. Yani name'in yazıyı olduğu gibi döndürmesiyle aynı mantık,
+sadece Exception sınıfı mesajı args'tan alıyor.
 
-Python'da {e} ifadesi, oluşan hatanın (bu durumda ValueError) Python tarafından otomatik olarak üretilen orijinal hata mesajını tutar. print(f"Invalid parameter: {e}") yazdığınız için, Python'un kendi teknik açıklaması (invalid literal for int() with base 10: 'd') sizin yazdığınız metnin sonuna eklenir.
+Python'da {e} ifadesi, oluşan hatanın (bu durumda ValueError) Python tarafından otomatik olarak üretilen
+orijinal hata mesajını tutar. print(f"Invalid parameter: {e}") yazdığınız için, Python'un kendi teknik açıklaması
+(invalid literal for int() with base 10: 'd') sizin yazdığınız metnin sonuna eklenir.
+
+finally
+
+finally bloğu hata olsa da olmasa da, her durumda çalışır. Genelde temizlik işleri için kullanılır
+(dosya kapatma, bağlantı kesme).

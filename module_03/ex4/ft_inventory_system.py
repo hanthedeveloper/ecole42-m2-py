@@ -5,7 +5,7 @@ inv = {}
 i = 1
 while i < len(sys.argv):
     ar = sys.argv[i].split(":")
-    if len(ar) != 2:
+    if len(ar) != 2 or ar[0].strip() == "":
         print(f"Error - invalid parameter '{sys.argv[i]}'")
     elif ar[0] in inv:
         print(f"Redundant item '{ar[0]}' - discarding")

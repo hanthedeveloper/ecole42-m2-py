@@ -20,5 +20,5 @@ else:
     print("Total score:", sum(newlist))
     print("Average score:", (sum(newlist) / len(newlist)))
     print("High score:", max(newlist))
-    print("Low score", min(newlist))
+    print("Low score:", min(newlist))
     print("Score range:", (max(newlist) - min(newlist)))
