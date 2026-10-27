@@ -3,7 +3,7 @@ class GardenError(Exception):
                 self,
                 mesg: str = "Unknown garden error"
                 ) -> None:
-        super().__init__(mesg)
+        Exception.__init__(self, mesg)
 
 
 class PlantError(GardenError):
@@ -11,7 +11,7 @@ class PlantError(GardenError):
                 self,
                 mesg: str = "Unknown plant error"
                 ) -> None:
-        super().__init__(mesg)
+        GardenError.__init__(self, mesg)
 
 
 def water_plant(plant_name: str) -> None:
