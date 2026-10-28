@@ -91,8 +91,10 @@ def check_helper(my_dict: dict[str, str]) -> bool:
 class DataStream():
     def __init__(self) -> None:
         self.processors: list[DataProcessor] = []
+
     def register_processor(self, proc: DataProcessor) -> None:
         self.processors.append(proc)
+
     def process_stream(self, stream: list[typing.Any]) -> None:
         for input_ in stream:
             for proc in self.processors:
@@ -100,23 +102,59 @@ class DataStream():
                     proc.ingest(input_)
                     break
             else:
-                print("gecersız ınput")
+                print(f"DataStream error - Can't process element "
+                      f"in stream: {input_}")
+    
+    def print_processors_stats(self) -> None:
+        print("== DataStream statistics ==")
+        if not self.processors:
+            print("No processor found, no data")
+            return
 
+        for clas in self.processors:
+            print(f"{type(clas).__name__.replace("Processor", " Processor")}:"
+            f"total {clas.counter + 1} items processed,"
+            f"remaining {len(clas.wdata)} on processor")
 
 if __name__ == "__main__":
+    print("=== Code Nexus - Data Stream ===\n")
+    print("Initialize Data Stream...")
+    data = DataStream()
+    data.print_processors_stats()
+
     num = NumericProcessor()
     text = TextProcessor()
     log = LogProcessor()
 
-    data = DataStream()
+    print("\nRegistering Numeric Processor\n")
     data.register_processor(num)
+
+    newlist: list[typing.Any] = [
+        "Hello world",
+        [3.14, -1, 2.71],
+        [{"log_level": "WARNING",
+          "log_message": "Telnet access! Use ssh instead"},
+         {"log_level": "INFO",
+          "log_message": "User wil is connected"}],
+        42,
+        ["Hi", "five"],
+    ]
+    print(f"Send first batch of data on stream: {newlist}")
+    data.process_stream(newlist)
+    data.print_processors_stats()
+
+    print("\nRegistering other data processors")
     data.register_processor(text)
     data.register_processor(log)
+    print("Send the same batch again")
+    data.process_stream(newlist)
+    data.print_processors_stats()
 
-    var = 5
-    liste = [None, "42", 42, "hello", var, {"log_level": "ERROR", "log_message": "something failed"}]
-
-    data.process_stream(liste)
-    print(num.output())
-    print(text.output())
-    print(log.output())
+    print("\nConsume some elements from the data processors: "
+          "Numeric 3, Text 2, Log 1")
+    for _ in range(3):
+        num.output()
+    for _ in range(2):
+        text.output()
+    log.output()
+    data.print_processors_stats()
