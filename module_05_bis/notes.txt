@@ -7,3 +7,58 @@ sys.prefix: Şu an çalışan ortamın kök klasörü.
 
 Venv aktif değilse: base_prefix ile aynıdır (/usr).
 Venv aktifse: venv klasörünü gösterir (/home/x/module05-bis/lab_env).
+
+https://stackoverflow.com/questions/3925096/how-to-get-only-the-last-part-of-a-path-in-python
+
+python -m pip install SomePackage            # latest version
+python -m pip install SomePackage==1.0.4     # specific version
+python -m pip install 'SomePackage>=1.0.4'     # minimum version
+
+“Requirements files” are files containing a list of items to be installed using pip install like so:
+
+Unix/macOS
+python -m pip install -r requirements.txt
+
+Dosyadaki paketlerin hangi sırayla kurulacağına güvenme. Pip sırayı garanti etmez.
+Dosya bir URL’den de okunabilir, merkezi bir yerde tutulabilir.
+
+1. pip freeze sonucunu saklamak
+python -m pip freeze > requirements.txt
+python -m pip install -r requirements.txt
+pip freeze, ortamda kurulu her şeyi tam sürümüyle listeler 
+Bağımlılıkların bağımlılıkları da buna dahil.
+Başka bir makinede pip install -r yapınca birebir aynı sürümler kurulur. 
+
+Senin ex0'daki karşılığı: requirements.txt bu mantıkla pin’lenebilir. 
+Ama subject’in pandas>=2.1.0 gibi aralık yazan hali de kabul edilir. 
+İkisi arasındaki fark, aralık yazarsan kurulum zamanında çıkan en yeni uyumlu sürümü almandır. 
+Subject’in “pip resolves it at install time” cümlesi bunu anlatıyor.
+
+req file format:
+# This is a comment, to show how #-prefixed lines are ignored.
+# It is possible to specify requirements as plain names.
+pytest
+pytest-cov
+beautifulsoup4
+
+# The syntax supported here is the same as that of requirement specifiers.
+docopt == 0.6.1
+requests [security] >= 2.8.1, == 2.8.* ; python_version < "2.7"
+urllib3 @ https://github.com/urllib3/urllib3/archive/refs/tags/1.26.8.zip
+
+# It is possible to refer to other requirement files or constraints files.
+-r other-requirements.txt
+-c constraints.txt
+
+# It is possible to refer to specific local distribution paths.
+./downloads/numpy-1.9.2-cp34-none-win32.whl
+
+# It is possible to refer to URLs.
+http://wxpython.org/Phoenix/snapshot-builds/wxPython_Phoenix-3.0.3.dev1820+49a8884-cp34-none-win_amd64.whl
+
+import_module(name, package=None) fonksiyonu iki argüman alır:
+
+name: Hangi modülün içe aktarılacağını belirtir. Bu isim mutlak (absolute) ya da göreli (relative) olabilir.
+
+package: Eğer name göreceli bir ifade (. veya .. gibi) içeriyorsa,
+bu argümanın doldurulması zorunludur. Hangi paketin referans (anchor) alınacağını söyler.
