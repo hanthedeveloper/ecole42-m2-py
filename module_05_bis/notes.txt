@@ -62,3 +62,8 @@ name: Hangi modülün içe aktarılacağını belirtir. Bu isim mutlak (absolute
 
 package: Eğer name göreceli bir ifade (. veya .. gibi) içeriyorsa,
 bu argümanın doldurulması zorunludur. Hangi paketin referans (anchor) alınacağını söyler.
+
+package-mode = false: Bunu yazmazsan Poetry “ex0 adında bir paket var” sanıp ex0/ex0/ klasörü arar ve poetry install şikayet eder.
+
+poetry remove pandas numpy hem paketi siler hem de pyproject.toml’dan satırı çıkarır. Sadece kurulumu silmek istiyorsan bu işine yaramaz, dosyanı bozar.
+https://www.geeksforgeeks.org/python/script-management-with-python-poetry/
