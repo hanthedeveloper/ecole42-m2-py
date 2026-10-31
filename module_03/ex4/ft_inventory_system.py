@@ -1,44 +1,46 @@
 import sys
 
 print("=== Inventory System Analysis ===")
-inv = {}
+inv: dict[str, int] = {}
 i = 1
 while i < len(sys.argv):
-    ar = sys.argv[i].split(":")
-    if len(ar) != 2 or ar[0].strip() == "":
-        print(f"Error - invalid parameter '{sys.argv[i]}'")
-    elif ar[0] in inv:
-        print(f"Redundant item '{ar[0]}' - discarding")
+    arg = sys.argv[i]
+    parts = arg.split(":")
+    if len(parts) != 2 or parts[0].strip() == "":
+        print(f"Error - invalid parameter '{arg}'")
+    elif parts[0] in inv:
+        print(f"Redundant item '{parts[0]}' - discarding")
     else:
         try:
-            if int(ar[1]) < 0:
-                print(f"Error - negative quantity for '{ar[0]}'")
+            quantity = int(parts[1])
+            if quantity < 0:
+                print(f"Error - negative quantity for '{parts[0]}'")
             else:
-                inv[ar[0]] = int(ar[1])
+                inv[parts[0]] = quantity
         except ValueError as e:
-            print(f"Quantity error for '{ar[0]}': {e}")
+            print(f"Quantity error for '{parts[0]}': {e}")
     i += 1
-if len(inv) == 0:
-    print("Error - no valid items provided")
+
+print("Got inventory:", inv)
+items = list(inv.keys())
+print("Item list:", items)
+total = sum(inv.values())
+print(f"Total quantity of the {len(inv)} items:", total)
+if total == 0:
+    print("Total quantity is 0, cannot compute percentages")
 else:
-    print("Got inventory:", inv)
-    print("Item list:", list(dict.keys(inv)))
-    total = sum(inv.values())
-    print(f"Total quantity of the {len(inv)} items:", total)
-    mostab = list(dict.keys(inv))[0]
-    leasetab = list(dict.keys(inv))[0]
-    if total == 0:
-        print("Total quantity is 0, cannot compute percentages")
-    else:
-        for item in inv:
-            percent = round(inv[item] / total * 100, 1)
-            print(f"Item {item} represents {percent}%")
     for item in inv:
-        if inv[item] > inv[mostab]:
-            mostab = item
-        if inv[item] < inv[leasetab]:
-            leasetab = item
-    print(f"Item most abundant: {mostab} with quantity {inv[mostab]}")
-    print(f"Item least abundant: {leasetab} with quantity {inv[leasetab]}")
-    dict.update(inv, {'magic_item': 1})
-    print("Updated inventory:", inv)
+        percent = round(inv[item] / total * 100, 1)
+        print(f"Item {item} represents {percent}%")
+if len(inv) > 0:
+    most = items[0]
+    least = items[0]
+    for item in inv:
+        if inv[item] > inv[most]:
+            most = item
+        if inv[item] < inv[least]:
+            least = item
+    print(f"Item most abundant: {most} with quantity {inv[most]}")
+    print(f"Item least abundant: {least} with quantity {inv[least]}")
+inv.update({'magic_item': 1})
+print("Updated inventory:", inv)
