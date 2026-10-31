@@ -80,3 +80,25 @@ finally
 
 finally bloğu hata olsa da olmasa da, her durumda çalışır. Genelde temizlik işleri için kullanılır
 (dosya kapatma, bağlantı kesme).
+
+Evet, tam olarak doğru anlamışsınız. Düşük seviyeli ValueError’ı yakalayıp kendi TemperatureError sınıfınızdan bir hata fırlatırsınız ve from exc ile asıl sebebi bağlarsınız.
+
+python
+class GardenError(Exception):
+    def __init__(self, message: str = "Unknown garden error") -> None:
+        super().__init__(message)
+
+
+class TemperatureError(GardenError):
+    def __init__(self, message: str = "Unknown temperature error") -> None:
+        super().__init__(message)
+
+
+def input_temperature(temp_str: str) -> int:
+    try:
+        temp = int(temp_str)
+    except ValueError as exc:
+        raise TemperatureError(f"'{temp_str}' is not a valid number") from exc
+    if temp < 0 or temp > 40:
+        raise TemperatureError(f"{temp}°C is out of range for plants (0-40°C)")
+    return temp
