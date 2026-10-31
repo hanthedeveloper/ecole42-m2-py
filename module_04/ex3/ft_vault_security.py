@@ -1,4 +1,8 @@
-def secure_archive(name: str, act: str = "r", content: str | None = None) -> tuple[bool, str]:
+def secure_archive(
+        name: str,
+        act: str = "r",
+        content: str | None = None
+) -> tuple[bool, str]:
     if act != "w" and act != "r":
         return (False, "Unsupported action. Use 'w' or 'r' (default: 'r')")
     if act == "w" and content is None:
@@ -14,6 +18,7 @@ def secure_archive(name: str, act: str = "r", content: str | None = None) -> tup
         return (False, str(e))
     else:
         return (True, cntnt)
+
 
 if __name__ == "__main__":
     print("=== Cyber Archives Security ===\n")
