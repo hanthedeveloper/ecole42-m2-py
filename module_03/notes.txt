@@ -18,7 +18,6 @@ print(type(thistuple))
 
 Example
 Print the last item of the tuple:
-
 thistuple = ("apple", "banana", "cherry")
 print(thistuple[-1]) # cherry
 
@@ -47,7 +46,8 @@ Once a set is created, you cannot change its items, but you can remove items and
 Duplicates Not Allowed
 Sets cannot have two items with the same value.
 
-set.difference(a, b) yazdığında birinci argüman "ana küme", ikinci argüman "çıkarılacak küme" demektir. Sonuç: a'da olup b'de olmayan elemanlar.
+set.difference(a, b) yazdığında birinci argüman "ana küme", ikinci argüman "çıkarılacak küme" demektir.
+Sonuç: a'da olup b'de olmayan elemanlar.
 
 Örnek
 python
@@ -59,14 +59,19 @@ print(set.difference(b, a))   # {5}
 set.difference(a, b): a'dan başla, b'de bulunanları at, kalanı ver → {1, 2}
 set.difference(b, a): b'den başla, a'da bulunanları at, kalanı ver → {5}
 
-When we say that dictionaries are ordered, it means that the items have a defined order, and that order will not change.
+When we say that dictionaries are ordered, it means that the items have a defined order,
+and that order will not change.
 
-Unordered means that the items do not have a defined order, you cannot refer to an item by using an index.
+Unordered means that the items do not have a defined order, you cannot refer to an item
+by using an index.
 
 
-The code inside the function is not executed when they are first called, but are divided into steps, one step for each yield, and each step is only executed when iterated upon.
+The code inside the function is not executed when they are first called,
+but are divided into steps, one step for each yield, and each step is only executed
+when iterated upon.
 
-Unlike the return keyword which stops further execution of the function, the yield keyword returns the result so far, and continues to the next step.
+Unlike the return keyword which stops further execution of the function, the yield
+keyword returns the result so far, and continues to the next step.
 
 The return value will be a list of values, one item for each yield.
 

@@ -20,27 +20,28 @@ def get_player_pos() -> tuple[float, float, float]:
             print(f"Error on parameter '{i}': {e}")
 
 
-try:
-    print("=== Game Coordinate System ===")
-    print()
-    print("Get a first set of coordinates")
-    one = get_player_pos()
-    print("Got a first tuple:", one)
-    xo, yo, zo = one
-    print(f"It includes: X={xo}, Y={yo}, Z={zo}")
+if __name__ == "__main__"
     try:
-        res1 = math.sqrt(xo**2 + yo**2 + zo**2)
-        print(f"Distance to center: {round(res1, 4)}")
-    except OverflowError:
-        print("Distance too large to compute")
-    print()
-    print("Get a second set of coordinates")
-    two = get_player_pos()
-    xn, yn, zn = two
-    try:
-        res2 = math.sqrt((xn - xo)**2 + (yn - yo)**2 + (zn - zo)**2)
-        print(f"Distance between the 2 sets of coordinates: {round(res2, 4)}")
-    except OverflowError:
-        print("Distance too large to compute")
-except (EOFError, KeyboardInterrupt):
-    print("\nInput interrupted.")
+        print("=== Game Coordinate System ===")
+        print()
+        print("Get a first set of coordinates")
+        one = get_player_pos()
+        print("Got a first tuple:", one)
+        xo, yo, zo = one
+        print(f"It includes: X={xo}, Y={yo}, Z={zo}")
+        try:
+            res1 = math.sqrt(xo**2 + yo**2 + zo**2)
+            print(f"Distance to center: {round(res1, 4)}")
+        except OverflowError:
+            print("Distance too large to compute")
+        print()
+        print("Get a second set of coordinates")
+        two = get_player_pos()
+        xn, yn, zn = two
+        try:
+            res2 = math.sqrt((xn - xo)**2 + (yn - yo)**2 + (zn - zo)**2)
+            print(f"Distance between the 2 sets of coordinates: {round(res2, 4)}")
+        except OverflowError:
+            print("Distance too large to compute")
+    except (EOFError, KeyboardInterrupt):
+        print("\nInput interrupted.")
