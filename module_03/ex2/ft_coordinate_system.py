@@ -12,15 +12,15 @@ def get_player_pos() -> tuple[float, float, float]:
             continue
         try:
             for i in parts:
-                v = float(i)
-                if v != v or v in (float("inf"), float("-inf")):
+                temp = float(i)
+                if temp != temp or temp in (float("inf"), float("-inf")):
                     raise ValueError("must be a finite number")
             return (float(a), float(b), float(c))
         except ValueError as e:
             print(f"Error on parameter '{i}': {e}")
 
 
-if __name__ == "__main__"
+if __name__ == "__main__":
     try:
         print("=== Game Coordinate System ===")
         print()
