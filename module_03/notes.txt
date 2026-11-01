@@ -76,3 +76,20 @@ keyword returns the result so far, and continues to the next step.
 The return value will be a list of values, one item for each yield.
 
 newlist = [expression for item in iterable if condition == True]
+
+[ ÇIKTI   for DEĞİŞKEN in İTERABLE   if ŞART   for DEĞİŞKEN2 in İTERABLE2   if ŞART2 ... ]
+
+[x for x in a]          # list
+{x for x in a}          # set
+{x: 1 for x in a}       # dict
+(x for x in a)          # generator
+
+Değişken adı serbest, _ kullanırsan “değerle ilgilenmiyorum” anlamına gelir:
+
+python
+[0 for _ in range(5)]    # [0, 0, 0, 0, 0]
+
+for’lar arasına da if girebilir:
+
+python
+[y for x in A if x > 0 for y in B if y != x]

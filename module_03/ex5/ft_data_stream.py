@@ -24,7 +24,7 @@ def consume_event(
         yield event
 
 
-if __name__ == __main__:
+if __name__ == "__main__":
     print("=== Game Data Stream Processor ===")
     obj = gen_event()
     for i in range(1000):
