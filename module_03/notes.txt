@@ -93,3 +93,16 @@ for’lar arasına da if girebilir:
 
 python
 [y for x in A if x > 0 for y in B if y != x]
+
+
+
+def func():
+    newlist = [i for i in [1,2,3,4,5]]
+    return newlist
+
+def gen():
+    for i in [1,2,3,4,5]:
+        yield i
+
+g = gen()
+print(next(g))
