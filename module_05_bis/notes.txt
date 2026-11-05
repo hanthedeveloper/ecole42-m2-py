@@ -67,3 +67,21 @@ package-mode = false: Bunu yazmazsan Poetry “ex0 adında bir paket var” san�
 
 poetry remove pandas numpy hem paketi siler hem de pyproject.toml’dan satırı çıkarır. Sadece kurulumu silmek istiyorsan bu işine yaramaz, dosyanı bozar.
 https://www.geeksforgeeks.org/python/script-management-with-python-poetry/
+
+“Ortam” = programın çalıştığı terminal oturumu (işletim sistemi).
+Config (yapılandırma): Programın davranışını ayarlayan değerler. Örneğin “hangi moddasın?”, “API anahtarın ne?”, “hangi veritabanına bağlanacaksın?”. Bunları kodun içine yazmazsın, dışarıdan verirsin. Böylece kodu değiştirmeden programın davranışını değiştirebilirsin.
+
+By default, load_dotenv() will:
+
+Look for a .env file in the same directory as the Python script (or higher up the directory tree).
+Read each key-value pair and add it to os.environ.
+Not override existing environment variables (override=False). Pass override=True to override existing variables.
+env dosyasındaki satırları ortam değişkeni olarak yükler. True/False sadece “dosya bulundu mu, bir şey yüklendi mi” bilgisidir.
+
+Programın kendi ortam değişkenleri tablosuna. Python çalışırken işletim sistemi ona bir “env” sözlüğü verir, Python bunu os.environ olarak sunar. load_dotenv() .env dosyasındaki satırları bu sözlüğe ekler.
+
+Yani:
+
+Sadece çalışan Python programının içine yazılır.
+Terminale, sisteme ya da başka programlara kalıcı bir şey yazmaz. Program bitince hepsi kaybolur.
+İkisinde de bir şey yazdırması normal: os.environ zaten sistemin kendi ortam değişkenlerini (PATH, HOME, USER vb.) içerir. load_dotenv() sadece bunlara .env’deki satırları ekler. Yani kontrol edeceğin şey “bir şey yazdırıyor mu” değil, “benim değişkenlerim listede var mı”:
