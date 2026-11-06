@@ -2,7 +2,7 @@ import os
 import sys
 
 
-def main() -> int:
+def env_file() -> int:
     mode = os.getenv("MATRIX_MODE", "development")
     database = os.getenv("DATABASE_URL", "sqlite:///local.db")
     api_key = os.getenv("API_KEY", "")
@@ -35,6 +35,10 @@ def main() -> int:
     return 0
 
 
+def is_env_ignored:
+    
+
+
 if __name__ == "__main__":
     try:
         from dotenv import load_dotenv
@@ -42,6 +46,7 @@ if __name__ == "__main__":
         print("WARNING: python-dotenv is not installed.")
     else:
         if not load_dotenv():
-            print("WARNING: no .env file found, "
-                "reading from the environment only")
-        main()
+            print("WARNING: no .env file found.")
+        print("ORACLE STATUS: Consulting the configuration...")
+        print()
+        env_file()
