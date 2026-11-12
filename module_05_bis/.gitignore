@@ -1,3 +1,7 @@
 lab_env/
-.env
+venv/
 __pycache__/
+*.pyc
+.mypy_cache/
+.env
+*.pdf
