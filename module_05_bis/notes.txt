@@ -85,3 +85,48 @@ Yani:
 Sadece çalışan Python programının içine yazılır.
 Terminale, sisteme ya da başka programlara kalıcı bir şey yazmaz. Program bitince hepsi kaybolur.
 İkisinde de bir şey yazdırması normal: os.environ zaten sistemin kendi ortam değişkenlerini (PATH, HOME, USER vb.) içerir. load_dotenv() sadece bunlara .env’deki satırları ekler. Yani kontrol edeceğin şey “bir şey yazdırıyor mu” değil, “benim değişkenlerim listede var mı”:
+
+
+Adım 2: “Şu anki paket” hangisi?
+
+Kod hangi dosyada yazıyorsa, o dosyanın ait olduğu paket. __init__.py dosyası alchemy/ klasöründe durduğu için, onun “şu anki paketi” alchemy’dir.
+Adım 3: Modül ve paket farkı
+Modül = tek bir .py dosyası. (elements.py)
+Paket = içinde modüller olan klasör. (alchemy/)
+
+
+Örnek 1: Tek dosya import etmek
+
+main.py
+
+python
+import selam
+print(selam.x)
+
+python3 main.py dediğinde adım adım:
+
+Adım 1. Python main.py’yi çalıştırmaya başlar. sys.path[0] = proje/ klasörü olur.
+
+Adım 2. import selam satırına gelir. sys.modules (yüklenmiş modüller listesi) içine bakar. Şu an selam yok.
+
+Adım 3. sys.path içindeki klasörlere sırayla bakar. İlk klasör proje/. Orada selam.py var. Bulundu.
+
+Adım 4. selam.py’yi baştan sona çalıştırır. Ekrana selam.py çalışıyor yazılır. x = 5 satırı çalışır, yani x diye bir değişken oluşur.
+
+Adım 5. Bu dosya çalışırken oluşan her şey (x gibi) bir “modül nesnesi”nin içine konur. Bu nesne sys.modules["selam"] olarak kaydedilir.
+
+Adım 6. main.py içinde selam ismi bu nesneye bağlanır. selam.x yazınca nesnenin içindeki x okunur, yani 5.
+
+Çıktı:
+
+selam.py çalışıyor
+5
+
+“Modül nesnesi” dediğim şey, dosyanın içinde tanımlanan isimlerin (değişken, fonksiyon) durduğu bir kutu. Dosya çalışınca kutu dolar, sen de selam. diyerek kutunun içinden alırsın.
+
+(lab_env) yvecea@hb:~/ecole42-m2-py/module_05_bis$ python3 ft_alembic_0.py 
+g
+=== Alembic 0 ===
+Using: 'import ...' structure to access elements.py
+Testing create_fire: Fire element created
+(lab_env) yvecea@hb:~/ecole42-m2-py/module_05_bis$ 
