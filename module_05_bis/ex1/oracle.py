@@ -36,8 +36,9 @@ def env_file() -> int:
 
 
 def is_env_ignored() -> bool:
+    path = os.path.join(os.path.dirname(__file__), ".gitignore")
     try:
-        with open(".gitignore") as file:
+        with open(path) as file:
             return ".env" in [line.strip() for line in file]
     except FileNotFoundError:
         return False
