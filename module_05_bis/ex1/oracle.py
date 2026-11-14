@@ -2,39 +2,6 @@ import os
 import sys
 
 
-def env_file() -> int:
-    mode = os.getenv("MATRIX_MODE", "development")
-    database = os.getenv("DATABASE_URL", "sqlite:///local.db")
-    api_key = os.getenv("API_KEY", "")
-    log_level = os.getenv("LOG_LEVEL", "DEBUG")
-    zion = os.getenv("ZION_ENDPOINT", "http://localhost:8080")
-
-    if os.getenv("MATRIX_MODE") is None:
-        print("WARNING: MATRIX_MODE missing, using default")
-    if os.getenv("DATABASE_URL") is None:
-        print("WARNING: DATABASE_URL missing, using default")
-    if not api_key:
-        print("WARNING: API_KEY missing")
-    if os.getenv("LOG_LEVEL") is None:
-        print("WARNING: LOG_LEVEL missing, using default")
-    if os.getenv("ZION_ENDPOINT") is None:
-        print("WARNING: ZION_ENDPOINT missing, using default")
-
-    if mode == "production" and not api_key:
-        print("ERROR: API_KEY is required in production.")
-        return 1
-
-    shown_key = api_key if mode == "development" else "****"
-
-    print("Configuration loaded:")
-    print(f"Mode: {mode}")
-    print(f"Database: {database}")
-    print(f"API Access: {shown_key or '(not set)'}")
-    print(f"Log Level: {log_level}")
-    print(f"Remote Network: {zion}")
-    return 0
-
-
 def is_env_ignored() -> bool:
     path = os.path.join(os.path.dirname(__file__), ".gitignore")
     try:
@@ -44,6 +11,49 @@ def is_env_ignored() -> bool:
         return False
 
 
+def env_file():
+    mode = os.getenv("MATRIX_MODE")
+    db_url = os.getenv("DATABASE_URL")
+    api = os.getenv("API_KEY")
+    log_lvl = os.getenv("LOG_LEVEL")
+    zion = os.getenv("ZION_ENDPOINT")
+
+    if not mode:
+        print("Mode is missing. Using default.")
+        mode = "development"
+    if not db_url:
+        print("Database is missing. Using default.")
+        db_url = "local"
+    if not api:
+        print("API access is missing.")
+    if not log_lvl:
+        print("Log Level is missing. Using default.")
+        log_lvl = "INFO"
+    if not zion:
+        print("Remote Network is missing. Using default.")
+        zion = "offline"
+    print("Configuration loaded:")
+    print(f"Mode: {mode}")
+    print(f"Database: {'Connected to local instance' if db_url == 'local' else 'Connected to remote database'}")
+    if mode == "production" and not api:
+        print("ERROR: API_KEY is required in production!")
+    print(f"API Access: {'Authenticated' if api else 'Missing'}")
+    print(f"Log Level: {log_lvl}")
+    print(f"Remote Network: {'Online' if zion != 'offline' else 'Offline'}")
+
+    print()
+    print("Configuration security check:")
+    print("[OK] No hardcoded secrets detected")
+
+    if is_env_ignored():
+        print("[OK] .env file properly ignored by git")
+    else:
+        print("[WARNING] .env is NOT in .gitignore!")
+    print("[OK] Production overrides available")
+    print()
+    print("The Oracle sees all configurations.")
+
+
 if __name__ == "__main__":
     try:
         from dotenv import load_dotenv
@@ -51,19 +61,7 @@ if __name__ == "__main__":
         print("WARNING: python-dotenv is not installed.")
         print("Use requirements.txt to install it.")
     else:
-        if not load_dotenv():
+        env_path = os.path.join(os.path.dirname(__file__), ".env")
+        if not load_dotenv(env_path):
             print("WARNING: no .env file found.")
-    print("ORACLE STATUS: Consulting the configuration...")
-    print()
-    if env_file() == 1:
-        sys.exit(1)
-    print()
-    print("Configuration security check:")
-    print("[OK] No hardcoded secrets detected")
-    if is_env_ignored():
-        print("[OK] .env file properly ignored by git")
-    else:
-        print("[WARNING] .env file is NOT ignored by git")
-    print("[OK] Production overrides available")
-    print()
-    print("The Oracle sees all configurations.")
+    env_file()

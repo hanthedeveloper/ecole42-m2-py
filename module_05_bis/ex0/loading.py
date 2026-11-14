@@ -10,17 +10,18 @@ if __name__ == "__main__":
     try:
         module = importlib.import_module("pandas")
     except ImportError:
-        print(f"[MISSING] pandas")
+        print("[MISSING] pandas")
         missing.append("pandas")
     else:
         print(f"[OK] pandas ({module.__version__}) - Data manipulation ready")
     try:
         module = importlib.import_module("numpy")
     except ImportError:
-        print(f"[MISSING] numpy")
+        print("[MISSING] numpy")
         missing.append("numpy")
     else:
-        print(f"[OK] numpy ({module.__version__}) - Numerical computation ready")
+        print(f"[OK] numpy ({module.__version__})", end=" ")
+        print("- Numerical computation ready")
 
     if missing:
         print()

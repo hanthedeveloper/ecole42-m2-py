@@ -1,5 +1,6 @@
 import alchemy
 
+
 if __name__ == "__main__":
     print("=== Alembic 1 ===")
     print("Accessing the alchemy module using 'import alchemy'")
