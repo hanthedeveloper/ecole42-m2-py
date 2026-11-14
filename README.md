@@ -13,8 +13,8 @@ exercise lives in its own `exN/` directory inside it.
 | 02 | `module02/` | Garden Guardian: `try`, `except`, `raise`, `finally`, custom exceptions |
 | 03 | `module03/` | Data Quest: lists, tuples, sets, dictionaries, generators, comprehensions, `sys.argv` |
 | 04 | `module04/` | Data Archivist: `open`, `read`, `write`, `sys.stdin`, `sys.stdout`, `sys.stderr`, `with` (context managers) |
-| 06-08 | `module05-bis/` | TODO |
-| 05-07 | `module06-bis/` | TODO |
+| 05-bis | `module05-bis/` | The Codex: virtual environments (`venv`), `pip` and Poetry, `.env` configuration (`python-dotenv`), packages, `__init__.py`, absolute and relative imports, circular imports |
+| 06-bis | `module06-bis/` | Code Nexus: abstract classes (`ABC`), method overriding, polymorphism, `Protocol` (duck typing), abstract factory, capabilities, abstract strategy |
 | 09 | `module09/` | TODO |
 | 10 | `module10/` | TODO |
 
