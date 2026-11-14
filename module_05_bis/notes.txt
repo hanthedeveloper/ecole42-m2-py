@@ -1,9 +1,13 @@
-It is sufficient to check sys.prefix != sys.base_prefix to determine if the current interpreter is running from a virtual environment.
-Python bir “prefix” (kurulum kök klasörü) kullanır. Standart kütüphane ve paketler bu klasörün altında aranır.
+Python bir program çalıştırırken, kendi içinde bazı bilgiler tutar.
+Örneğin hangi Python sürümünün kullanıldığı, Python’ın bilgisayarda nerede kurulu olduğu, programa verilen argümanlar gibi.
+sys modülü, bu bilgilere ulaşmanı sağlayan hazır bir araç kutusudur.
 
-sys.base_prefix: Sisteme kurulu asıl Python’un kök klasörü. Venv içinde olsan da dışında olsan da hep aynı yeri gösterir (Linux’ta genelde /usr).
-
+It is sufficient to check sys.prefix != sys.base_prefix to determine if the current interpreter is running from a
+virtual environment.
+sys.base_prefix: Sisteme kurulu asıl Python’un kök klasörü.
+Venv içinde olsan da dışında olsan da hep aynı yeri gösterir (Linux’ta genelde /usr).
 sys.prefix: Şu an çalışan ortamın kök klasörü.
+Sanal ortam, bir proje için ayrı bir “mini Python odası” oluşturmaktır. Böylece her projenin paketleri birbirine karışmaz.
 
 Venv aktif değilse: base_prefix ile aynıdır (/usr).
 Venv aktifse: venv klasörünü gösterir (/home/x/module05-bis/lab_env).

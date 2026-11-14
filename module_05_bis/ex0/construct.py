@@ -2,6 +2,7 @@ import os
 import site
 import sys
 
+
 if __name__ == "__main__":
     if sys.prefix != sys.base_prefix:
         print("LABORATORY STATUS: The laboratory is sealed")
