@@ -130,3 +130,29 @@ g
 Using: 'import ...' structure to access elements.py
 Testing create_fire: Fire element created
 (lab_env) yvecea@hb:~/ecole42-m2-py/module_05_bis$ 
+
+
+alembic1’de ise şunu yapıyorsun:
+
+python
+import alchemy
+alchemy.create_air()
+
+Burada alchemy paketinin kendisinde create_air adında bir isim olması lazım. Ama __init__.py içine import alchemy.elements yazarsan, alchemy isim alanına sadece elements adı eklenir. Yani şu çalışır:
+
+python
+alchemy.elements.create_air()
+
+ama şu çalışmaz:
+
+python
+alchemy.create_air()
+
+from .elements import create_air içindeki nokta “bu paketin kendi içindeki elements” demek (relative import). Noktasız yazarsan:
+
+python
+from elements import create_air
+
+Python elements’i paket içinde değil, repo kökünde (veya sys.path’te) arar. Orada da kök dizindeki elements.py var, yani yanlış dosyayı bulur ve create_fire/create_water gelir, create_air bulunamaz. Senin ilk denemende “bilmiyor” demen bundan.
+import alchemy yazdığında Python alchemy klasörünü bulur ve alchemy/__init__.py dosyasını çalıştırır. Klasör de bir modül nesnesi olur, ve __init__.py içinde ne üretilirse o paketin isim alanına yazılır.
+
