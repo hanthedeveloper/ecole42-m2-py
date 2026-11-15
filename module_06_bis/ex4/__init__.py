@@ -1,6 +1,6 @@
-from strategy import (
+from .strategy import (
     AggressiveStrategy,
     BattleStrategy,
-    InvalidStrategyError,
+    InvalidStrategy,
     NormalStrategy,
 )

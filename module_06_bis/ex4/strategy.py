@@ -1,14 +1,14 @@
 from abc import ABC, abstractmethod
-from ex3 import CreatureFactory, TransformCapability
+from ex3 import TransformCapability, Creature
 
 
 class InvalidStrategy(Exception):
-    
+    pass
 
 
 class BattleStrategy(ABC):
     @abstractmethod
-    def act(self, creature):
+    def act(self, creature: Creature) -> None:
         pass
 
     @abstractmethod
@@ -24,9 +24,9 @@ class NormalStrategy(BattleStrategy):
         return True
 
 
-class AggresiveStrategy(BattleStrategy):
+class AggressiveStrategy(BattleStrategy):
     def is_valid(self, creature: Creature) -> bool:
-        return if isnstance(creature, TransformCapability)
+        return isinstance(creature, TransformCapability)
 
     def act(self, creature: Creature) -> None:
         if not self.is_valid(creature):
@@ -34,3 +34,6 @@ class AggresiveStrategy(BattleStrategy):
                 f"Invalid Creature '{creature.name}' "
                 "for this aggressive strategy"
             )
+        print(creature.transform())
+        print(creature.attack())
+        print(creature.revert())
