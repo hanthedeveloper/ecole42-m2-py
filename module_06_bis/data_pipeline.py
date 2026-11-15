@@ -138,8 +138,8 @@ class DataStream():
     def output_pipeline(self, nb: int, plugin: ExportPlugin) -> None:
         for proc in self.processors:
             output_list: list[tuple[int, str]] = []
-            for i in range(min(nb, len(self.wdata))):
-                output_list.append(self.output())
+            for _ in range(min(nb, len(proc.wdata))):
+                output_list.append(proc.output())
             plugin.process_output(output_list)
 
 

@@ -111,12 +111,12 @@ class DataStream():
             print("No processor found, no data")
             return
 
-        for clas in self.processors:
-            print(
-                f"{type(clas).__name__.replace("Processor", " Processor")}:",
-                f"total {clas.counter + 1} items processed,",
-                f"remaining {len(clas.wdata)} on processor"
-                )
+        for proc in self.processors:
+            name = type(proc).__name__.replace("Processor", " Processor")
+            remaining = len(proc.wdata)
+            total = proc.counter + 1 + remaining
+            print(f"{name}: total {total} items processed, "
+                  f"remaining {remaining} on processor")
 
 
 if __name__ == "__main__":

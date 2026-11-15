@@ -2,6 +2,19 @@ from .creature import Creature
 from abc import ABC, abstractmethod
 
 
+class TransformCapability(ABC):
+    def __init__(self) -> None:
+        self.state: bool = False
+
+    @abstractmethod
+    def transform(self) -> str:
+        pass
+
+    @abstractmethod
+    def revert(self) -> str:
+        pass
+
+
 class Flameling(Creature):
     def __init__(self) -> None:
         super().__init__("Flameling", "Fire")
@@ -16,19 +29,6 @@ class Pyrodon(Creature):
 
     def attack(self) -> str:
         return f"{self.name} uses Flamethrower!"
-
-
-class TransformCapability(ABC):
-    def __init__(self) -> None:
-        self.state: bool = False
-
-    @abstractmethod
-    def transform(self) -> str:
-        pass
-
-    @abstractmethod
-    def revert(self) -> str:
-        pass
 
 
 class Shiftling(Creature, TransformCapability):
