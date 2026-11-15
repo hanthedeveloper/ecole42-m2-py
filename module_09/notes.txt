@@ -1,0 +1,5 @@
+yazdığımız type hint’ler normalde sadece geliştirici içindir.
+Pydantic ise bu type hint’leri gerçek dünyada çalışan kurallara dönüştürür.
+field_validator tek bir alan içindir.
+Birden fazla alanın birbiriyle ilişkisini kontrol etmek istiyorsan model_validator kullanılır.
+Field Pydantic’in bir fonksiyonu

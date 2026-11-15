@@ -7,5 +7,9 @@ from ex4 import (
 )
 
 
+def battle(opponents: list[tuple(CreatureFactory, BattleStrategy)]) -> None:
+    
+
+
 if __name__ == "__main__":
     print("Tournament 0 (basic)")
