@@ -142,6 +142,7 @@ class DataStream():
                 output_list.append(self.output())
             plugin.process_output(output_list)
 
+
 if __name__ == "__main__":
     print("=== Code Nexus - Data Pipeline ===\n")
     print("Initialize Data Stream...\n")

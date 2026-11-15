@@ -12,7 +12,7 @@ def is_env_ignored() -> bool:
 
 
 def env_file(overrides: list[str]) -> None:
-    mode = os.getenv("MATRIX_MODE")
+    mode = (os.getenv("MATRIX_MODE") or "").strip().lower()
     if not mode:
         print("Mode is missing. Using default.")
         mode = "development"

@@ -28,13 +28,15 @@ if __name__ == "__main__":
         print("Some reagents are missing. Install them with:")
         print("pip install -r ex0/requirements.txt")
         print("poetry install")
-    else:
-        print()
-        print("pip vs Poetry:")
-        print("  requirements.txt declares what to install; "
-              "pip resolves it at install time.")
-        print("  pyproject.toml declares the same constraints, and Poetry "
-              "pins the resolved")
-        print("  versions in poetry.lock so every install is identical.")
+
+    print()
+    print("pip vs Poetry:")
+    print("  requirements.txt declares what to install; "
+          "pip resolves it at install time.")
+    print("  pyproject.toml declares the same constraints, and Poetry "
+          "pins the resolved")
+    print("  versions in poetry.lock so every install is identical.")
+
+    if not missing:
         print()
         print("All reagents present and accounted for.")

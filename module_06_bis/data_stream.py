@@ -104,7 +104,7 @@ class DataStream():
             else:
                 print(f"DataStream error - Can't process element "
                       f"in stream: {input_}")
-    
+
     def print_processors_stats(self) -> None:
         print("== DataStream statistics ==")
         if not self.processors:
@@ -112,9 +112,12 @@ class DataStream():
             return
 
         for clas in self.processors:
-            print(f"{type(clas).__name__.replace("Processor", " Processor")}:"
-            f"total {clas.counter + 1} items processed,"
-            f"remaining {len(clas.wdata)} on processor")
+            print(
+                f"{type(clas).__name__.replace("Processor", " Processor")}:",
+                f"total {clas.counter + 1} items processed,",
+                f"remaining {len(clas.wdata)} on processor"
+                )
+
 
 if __name__ == "__main__":
     print("=== Code Nexus - Data Stream ===\n")
