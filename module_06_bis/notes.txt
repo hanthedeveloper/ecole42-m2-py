@@ -2,6 +2,8 @@ https://docs.python.org/3/builtins/functions.html
 
 Mesela Plant diye abstract bir sınıfın olsun ve içinde grow() abstract olsun. Flower ve Tree bu
 sınıftan türetilince ikisi de grow() yazmak zorunda kalır, ama her biri kendi şekilde yapar.
+ABC (Abstract Base Class), miras almanın üstüne eklenen bir zorunluluk. Hâlâ miras alıyorsun,
+ama ata sınıf “şu metodları sen yazmak zorundasın” diyor.
 
 The all() function returns True if all items in an iterable are true, otherwise it returns False.
 If the iterable object is empty, the all() function also returns True.
@@ -13,6 +15,13 @@ https://docs.python.org/3/library/abc.html
 Bu öğe bir sayı, bir string veya başka bir liste (iç içe liste / nested list) olabilir.
 • extend(): Kendisine verilen yinelenebilir (iterable - liste, demet, string vb.)
 bir nesnenin tüm elemanlarını tek tek ana listenin sonuna ekler.
+append(x): x’i listeye tek bir eleman olarak ekler.
+extend(iterable): iterable’ın içindeki her elemanı tek tek listeye ekler.
+python
+a = [1, 2]
+a.append([3, 4])   # [1, 2, [3, 4]]  -> liste içinde liste
+b = [1, 2]
+b.extend([3, 4])   # [1, 2, 3, 4]    -> elemanlar tek tek
 
 isinstance(data.keys(), str) bir string kontrolü değil: keys() bir “görünüm nesnesi” döndürür,
 str olamaz, hep False verir. Her anahtarı tek tek kontrol etmen lazım,
@@ -23,9 +32,7 @@ ingest imzası ve mesaj
 dict | list[dict[str, str]] içinde tek dict dict kalmış. Subject “signature must reflect the accepted types” diyor, tek dict için de dict[str, str] yaz.
 Hata mesajı "Improper data", Text’te yaptığın gibi Log’a uygun bir mesaj yaz.
 output
-Rank artık doğru çıkıyor (-1’den başlayıp pop sonrası artırınca ilk rank 0). Çalışıyor ama -1 başlangıcı okunurluğu bozuyor, peer’a açıklaman gerekir.
-Asıl sorun: except IndexError: pass. Liste boşken popdata hiç oluşmaz, return satırı UnboundLocalError verir. except içinde ya hatayı tekrar fırlat ya da kendi mesajlı bir exception at.
-self.counter hâlâ kullanılmıyor.
+
 main
 ex_log _ LogProcessor() satırında = yerine _ yazmışsın, SyntaxError. Dosya buna takılıp hiç çalışmaz.
 ex1 diye bir değişken yok, yukarıda ex_num, ex_text, ex_log tanımladın. NameError.
@@ -36,13 +43,3 @@ check_helper öncesinde 1 boş satır var, 2 gerekiyor (E302).
 if __name__ öncesinde de 2 boş satır gerekiyor (E305).
 
 Sırayla: önce main’deki _ ve ex1 hatalarını düzelt, dosya çalışsın. Sonra Numeric’i test et, sonra Log’u. Log’un check_helper ve dönüşümünü yazıp tekrar at, bakarız.
-
-extend ve append farklı şeyler yapıyor:
-
-append(x): x’i listeye tek bir eleman olarak ekler.
-extend(iterable): iterable’ın içindeki her elemanı tek tek listeye ekler.
-python
-a = [1, 2]
-a.append([3, 4])   # [1, 2, [3, 4]]  -> liste içinde liste
-b = [1, 2]
-b.extend([3, 4])   # [1, 2, 3, 4]    -> elemanlar tek tek

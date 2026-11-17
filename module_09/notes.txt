@@ -1,5 +1,32 @@
 yazdığımız type hint’ler normalde sadece geliştirici içindir.
 Pydantic ise bu type hint’leri gerçek dünyada çalışan kurallara dönüştürür.
+Pydantic zaten tipe bakarak doğrulamayı kendisi yapıyor.
+
 field_validator tek bir alan içindir.
-Birden fazla alanın birbiriyle ilişkisini kontrol etmek istiyorsan model_validator kullanılır.
+Birden fazla alanın birbiriyle ilişkisini kontrol etmek istiyorsan
+model_validator kullanılır.
+@field_validator handles single-field logic;
+@model_validator(mode='after') handles cross-field checks —
+always return self from after-mode validators.
+
 Field Pydantic’in bir fonksiyonu
+
+default=None, “bu alana değer verilmezse varsayılan olarak None olsun” demek.
+
+BaseModel’den miras aldığında Pydantic senin için __init__ metodunu 
+otomatik olarak üretiyor. Sen sadece alanları tip ve kısıtlarıyla tanımlıyorsun, 
+gerisini o hallediyor.
+
+1 After validators run after Pydantic’s internal parsing.
+They are generally more type safe and thus easier to implement.
+2 Before validators run before Pydantic’s internal parsing and validation
+(e.g. coercion of a str to an int).
+These are more flexible than After validators since they can modify the raw input,
+but they also have to deal with the raw input, which in theory could be
+any arbitrary object.
+3 Plain validators are like a mode='before' validator but they terminate 
+validation immediately, no further validators are called and Pydantic does not 
+do any of its internal validation.
+4 Wrap validators are the most flexible of all. You can run code before or after 
+Pydantic and other validators do their thing or you can terminate validation 
+immediately, both with a successful value or an error.
