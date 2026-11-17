@@ -4,34 +4,21 @@ Mesela Plant diye abstract bir sınıfın olsun ve içinde grow() abstract olsun
 sınıftan türetilince ikisi de grow() yazmak zorunda kalır, ama her biri kendi şekilde yapar.
 
 The all() function returns True if all items in an iterable are true, otherwise it returns False.
-
 If the iterable object is empty, the all() function also returns True.
-
 Note: When used on a dictionary, the all() function checks if all the keys are true, not the values.
 
 https://docs.python.org/3/library/abc.html
 
+• append(): Listenin sonuna tek bir öğe ekler.
+Bu öğe bir sayı, bir string veya başka bir liste (iç içe liste / nested list) olabilir.
+• extend(): Kendisine verilen yinelenebilir (iterable - liste, demet, string vb.)
+bir nesnenin tüm elemanlarını tek tek ana listenin sonuna ekler.
 
-Asıl takıldığın yerden başlayayım, sonra dosyayı patlatacak hatalara geçeriz.
-
-Listeye ekleme (LogProcessor.ingest)
-
-Şu an extend(i.keys()) ve extend(i.values()) ile dict’in anahtarlarını ve değerlerini ayrı ayrı elemanlar olarak ekliyorsun. Liste "log_level", "log_message", "NOTICE", "Connection to server" gibi 4 parçaya dağılır. Oysa subject “keeping each item separated” diyor: her dict tek bir eleman olmalı, string hâli NOTICE: Connection to server.
-
-Mantık şöyle olmalı:
-
-Bir dict alıp ondan tek bir string üretirsin (log_level değeri, iki nokta, boşluk, log_message değeri).
-Listeden gelen her dict için bu string’i wdata’ya bir kez eklersin. Burada extend değil append mantığı var, çünkü her seferinde tek string ekliyorsun. Ya da string’leri üreten bir generator’ı extend’e verirsin, Numeric’te yaptığın gibi.
-Tek dict gelirse aynı dönüşümü uygular, tek append yaparsın. Şu an else’te str(data) yazıyor, bu "{'log_level': ...}" gibi dict’in yazı hâlini verir, istediğin çıktı değil.
-
-Dönüşümü bir yardımcıyla yaparsan iki dal da aynı yardımcıyı kullanır, kod tekrar etmez.
-
-Veri bozulma uyarısı: dönüşümü yaparken bir dict’te log_level ya da log_message yoksa KeyError çıkar. Listenin ortasında çıkarsa yarısı eklenmiş olur. İki çözüm: validate bu iki anahtarın varlığını da şart koşar, ya da önce hepsini string’e çevirip hazır listeyi sonra tek seferde eklersin.
-
-check_helper
-data diye bir değişken yok, parametre my_dict. NameError verir.
-isinstance(data.keys(), str) bir string kontrolü değil: keys() bir “görünüm nesnesi” döndürür, str olamaz, hep False verir. Her anahtarı tek tek kontrol etmen lazım, önceki mesajdaki all mantığı: anahtarlar için bir all, değerler için bir all, and ile bağla.
-Fonksiyon sınıftan sonra tanımlı ama çalışma anında çağrıldığı için sorun çıkmaz. Yine de okunurluk için sınıftan önce ya da sınıfın içinde (başında _ ile) olması daha düzgün.
+isinstance(data.keys(), str) bir string kontrolü değil: keys() bir “görünüm nesnesi” döndürür,
+str olamaz, hep False verir. Her anahtarı tek tek kontrol etmen lazım,
+önceki mesajdaki all mantığı: anahtarlar için bir all, değerler için bir all, and ile bağla.
+Fonksiyon sınıftan sonra tanımlı ama çalışma anında çağrıldığı için sorun çıkmaz.
+yine de okunurluk için sınıftan önce ya da sınıfın içinde (başında _ ile) olması daha düzgün.
 ingest imzası ve mesaj
 dict | list[dict[str, str]] içinde tek dict dict kalmış. Subject “signature must reflect the accepted types” diyor, tek dict için de dict[str, str] yaz.
 Hata mesajı "Improper data", Text’te yaptığın gibi Log’a uygun bir mesaj yaz.
