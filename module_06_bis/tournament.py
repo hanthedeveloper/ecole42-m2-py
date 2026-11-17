@@ -8,6 +8,14 @@ from ex4 import (
 
 
 def battle(opponents: list[tuple[CreatureFactory, BattleStrategy]]) -> None:
+    names = ", ".join(
+        f"({fac.create_base().name}+"
+        f"{type(strat).__name__.replace('Strategy', '')})"
+        for fac, strat in opponents
+    )
+    print(f" [ {names} ]")
+    print("*** Tournament ***")
+    print(f"{len(opponents)} opponents involved")
     try:
         for outside in range(len(opponents)):
             for inside in range(outside + 1, len(opponents)):
