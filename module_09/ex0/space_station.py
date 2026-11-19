@@ -32,12 +32,15 @@ def main() -> None:
             print(err["msg"])
 
     print("Valid station created:")
-    print(ss_instance1.station_id)
-    print(ss_instance1.name)
-    print(ss_instance1.crew_size)
-    print(ss_instance1.power_level)
-    print(ss_instance1.oxygen_level)
-    print(ss_instance1.last_maintenance)
+    print("ID:", ss_instance1.station_id)
+    print("Name:", ss_instance1.name)
+    print("Crew:", ss_instance1.crew_size, "people")
+    print(f"Power: {ss_instance1.power_level}%")
+    print(f"Oxygen: {ss_instance1.oxygen_level}%")
+    if ss_instance1.is_operational:
+        print("Status: Operational")
+    else:
+        print("Status: Not Operational")
     print()
 
     print("========================================")
