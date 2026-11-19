@@ -28,7 +28,7 @@ class AlienContact(BaseModel):
     is_verified: bool = False
 
     @model_validator(mode='after')
-    def validate(self) -> "AlienContact":
+    def validate_contact(self) -> "AlienContact":
         if not self.contact_id.startswith("AC"):
             raise ValueError("Contact ID must start with "AC" (Alien Contact)")
         if self.contact_type == ContactType.PHYSICAL and not self.is_verified:
