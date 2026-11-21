@@ -161,3 +161,5 @@ from elements import create_air
 Python elements’i paket içinde değil, repo kökünde (veya sys.path’te) arar. Orada da kök dizindeki elements.py var, yani yanlış dosyayı bulur ve create_fire/create_water gelir, create_air bulunamaz. Senin ilk denemende “bilmiyor” demen bundan.
 import alchemy yazdığında Python alchemy klasörünü bulur ve alchemy/__init__.py dosyasını çalıştırır. Klasör de bir modül nesnesi olur, ve __init__.py içinde ne üretilirse o paketin isim alanına yazılır.
 
+poetry init
+
