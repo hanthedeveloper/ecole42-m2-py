@@ -30,7 +30,7 @@ class AlienContact(BaseModel):
     @model_validator(mode='after')
     def validate_contact(self) -> "AlienContact":
         if not self.contact_id.startswith("AC"):
-            raise ValueError("Contact ID must start with "AC" (Alien Contact)")
+            raise ValueError('Contact ID must start with "AC" (Alien Contact)')
         if self.contact_type == ContactType.PHYSICAL and not self.is_verified:
             raise ValueError("Physical contact reports must be verified")
         if self.contact_type == ContactType.TELEPATHIC and self.witness_count < 3:
@@ -74,7 +74,7 @@ def main() -> None:
     print("Expected validation error:")
 
     try:
-        ac_instance2 = AlienContact(
+        AlienContact(
             contact_id = "AC_2024_001",
             timestamp = "2024-01-15T10:30:00",
             location = "Area 51, Nevada",
