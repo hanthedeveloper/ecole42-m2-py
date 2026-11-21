@@ -39,7 +39,7 @@ class SpaceMission(BaseModel):
     @model_validator(mode='after')
     def validate_mission(self) -> "SpaceMission":
         if not self.mission_id.startswith("M"):
-            raise ValueError("Mission ID must starts with M")
+            raise ValueError("Mission ID must start with M")
         if not all(crew_mem.is_active for crew_mem in self.crew):
             raise ValueError("All crew members must be active")
         if self.duration_days > 365:

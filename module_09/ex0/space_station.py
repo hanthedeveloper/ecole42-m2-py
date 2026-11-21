@@ -30,7 +30,7 @@ def main() -> None:
     except ValidationError as e:
         for err in e.errors():
             print(err["msg"])
-            return
+        return
 
     print("Valid station created:")
     print("ID:", ss_instance1.station_id)

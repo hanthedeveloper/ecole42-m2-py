@@ -37,7 +37,7 @@ class AlienContact(BaseModel):
             raise ValueError("Telepathic contact requires at least 3 witnesses")
         if self.signal_strength > 7.0 and not self.message_received:
             raise ValueError("Strong signals (> 7.0) should include received messages")
-        return self 
+        return self
 
 
 def main() -> None:
@@ -66,8 +66,8 @@ def main() -> None:
     print("Location:", ac_instance1.location)
     print(f"Signal: {ac_instance1.signal_strength}/10")
     print("Duration:", ac_instance1.duration_minutes, "minutes")
-    print("Witnesses:", ac_instance1. witness_count)
-    print("Message:", ac_instance1. message_received)
+    print("Witnesses:", ac_instance1.witness_count)
+    print(f"Message: '{ac_instance1.message_received}'")
 
     print()
     print("======================================")
