@@ -72,11 +72,24 @@ By default, load_dotenv() will:
 Look for a .env file in the same directory as the Python script (or higher up the directory tree).
 Read each key-value pair and add it to os.environ.
 Not override existing environment variables (override=False). Pass override=True to override existing variables.
-env dosyasındaki satırları ortam değişkeni olarak çalışan programın belleğindeki ortam değişkenleri tablosuna yükler. os.environ adlı sözlük benzeri nesneye
+env dosyasındaki satırları ortam değişkeni olarak çalışan programın belleğindeki ortam değişkenleri tablosuna yükler.
+os.environ adlı sözlük benzeri nesneye
 True/False “dosya bulundu mu, bir şey yüklendi mi” bilgisidir.
 Yani:
 Sadece çalışan Python programının içine yazılır.
 Terminale, sisteme ya da başka programlara kalıcı bir şey yazmaz. Program bitince hepsi kaybolur.
+
+1 __file__
+Şu an çalışan dosyanın yoludur. Örneğin /home/ali/ex0/main.py.
+
+2 os.path.dirname(__file__)
+Yolun dosya adı kısmını atar, sadece klasörü verir: /home/ali/ex0
+
+3 os.path.join(..., ".env")
+Klasör ile .env adını işletim sistemine uygun ayraçla birleştirir (Linux’ta /, Windows’ta \):
+/home/ali/ex0/.env
+
+Sonuç env_path değişkenine string olarak atanır.
 
 Git nedir?
 Git, dosyalarının geçmişini kaydeden bir sürüm kontrol sistemidir.
@@ -85,7 +98,6 @@ Eski bir sürüme geri dönebilirsin.
 Neyin, ne zaman, kim tarafından değiştirildiğini görebilirsin.
 Birden fazla kişi aynı projede çakışmadan çalışabilir.
 Denemeler için ayrı dallar (branch) açıp ana koda dokunmadan çalışabilirsin.
-
 
 Repo (repository) nedir?
 Projenin klasörü ve o klasörün tüm geçmişidir. Bir klasörde git init dediğinde,
