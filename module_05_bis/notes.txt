@@ -1,6 +1,12 @@
 Python bir program çalıştırırken, kendi içinde bazı bilgiler tutar.
-Örneğin hangi Python sürümünün kullanıldığı, Python’ın bilgisayarda nerede kurulu olduğu, programa verilen argümanlar gibi.
+Örneğin hangi Python sürümünün kullanıldığı, Python’ın bilgisayarda nerede kurulu olduğu,
+programa verilen argümanlar gibi.
 sys modülü, bu bilgilere ulaşmanı sağlayan hazır bir araç kutusudur.
+os modulu dosya, klasör, yol ve ortam değişkenleri gibi işletim sistemi işlerini yapar.
+site modulu Üçüncü parti paketlerin nereye kurulduğunu ayarlar
+
+sys.path, Python’un import yaparken modül aradığı klasörlerin sıralı listesidir. 
+import pandas yazdığında Python bu listedeki klasörlere sırayla bakar, ilk bulduğunu yükler.
 
 It is sufficient to check sys.prefix != sys.base_prefix to determine if the current interpreter is running from a
 virtual environment.
@@ -11,8 +17,6 @@ Sanal ortam, bir proje için ayrı bir “mini Python odası” oluşturmaktır.
 Venv aktif değilse: base_prefix ile aynıdır (/usr).
 Venv aktifse: venv klasörünü gösterir (/home/x/module05-bis/lab_env).
 sys.executable, sys.prefix klasörünün içinde duran bir dosyadır.
-
-https://stackoverflow.com/questions/3925096/how-to-get-only-the-last-part-of-a-path-in-python
 
 python -m pip install SomePackage            # latest version
 python -m pip install SomePackage==1.0.4     # specific version
@@ -26,26 +30,32 @@ python -m pip install -r requirements.txt
 python -m pip freeze > requirements.txt
 python -m pip install -r requirements.txt
 pip freeze, ortamda kurulu her şeyi tam sürümüyle listeler 
-Bağımlılıkların bağımlılıkları da buna dahil.
 Başka bir makinede pip install -r yapınca birebir aynı sürümler kurulur. 
 Senin ex0'daki karşılığı: requirements.txt bu mantıkla pin’lenebilir. 
 Ama subject’in pandas>=2.1.0 gibi aralık yazan hali de kabul edilir. 
 İkisi arasındaki fark, aralık yazarsan kurulum zamanında çıkan en yeni uyumlu sürümü almandır. 
 Subject’in “pip resolves it at install time” cümlesi bunu anlatıyor.
+# It is possible to refer to other requirement files or constraints files.
+-r other-requirements.txt
+-c constraints.txt : kurulursa su surumde olsun
+# It is possible to refer to URLs.
+http://wxpython.org/Phoenix/snapshot-builds/wxPython_Phoenix-3.0.3.dev1820+49a8884-cp34-none-win_amd64.whl
+
+https://stackoverflow.com/questions/3925096/how-to-get-only-the-last-part-of-a-path-in-python
+
+python -m pip install SomePackage            # latest version
+python -m pip install SomePackage==1.0.4     # specific version
+python -m pip install 'SomePackage>=1.0.4'     # minimum version
 
 poetry bağımlılık yönetimi ve paketleme için geliştirilmiş, pip'ten daha üst seviye bir araçtır.
 Tek araç içinde şunları yapar:
 Sanal ortamı otomatik oluşturur ve yönetir
 Bağımlılıkları pyproject.toml dosyasında tutar
 Kesin sürümleri poetry.lock dosyasında kilitler (herkes birebir aynı sürümleri kurar)
-
-# It is possible to refer to other requirement files or constraints files.
--r other-requirements.txt
--c constraints.txt : kurulursa su surumde olsun
-
-# It is possible to refer to URLs.
-http://wxpython.org/Phoenix/snapshot-builds/wxPython_Phoenix-3.0.3.dev1820+49a8884-cp34-none-win_amd64.whl
-
+poetry.lock içinde her paket dosyasının hash’i kayıtlıdır. Poetry paketi indirdiğinde hash’ini hesaplar ve lock dosyasındakiyle karşılaştırır. Amaçlar:
+Bütünlük: İndirme sırasında dosya bozulmuşsa fark edilir.
+Güvenlik: Biri PyPI’daki paketi değiştirirse veya araya girip sahte bir dosya yollarsa hash uyuşmaz ve kurulum durur.
+Tekrarlanabilirlik: Herkes tam olarak aynı dosyayı kurmuş olur, sadece aynı sürümü değil.
 import_module(name, package=None) fonksiyonu iki argüman alır:
 name: Hangi modülün içe aktarılacağını belirtir. Bu isim mutlak (absolute)
 ya da göreli (relative) olabilir.
@@ -62,18 +72,48 @@ By default, load_dotenv() will:
 Look for a .env file in the same directory as the Python script (or higher up the directory tree).
 Read each key-value pair and add it to os.environ.
 Not override existing environment variables (override=False). Pass override=True to override existing variables.
-env dosyasındaki satırları ortam değişkeni olarak yükler. True/False sadece “dosya bulundu mu, bir şey yüklendi mi” bilgisidir.
-
-Programın kendi ortam değişkenleri tablosuna. Python çalışırken işletim sistemi ona bir “env” sözlüğü verir, Python bunu os.environ olarak sunar. load_dotenv() .env dosyasındaki satırları bu sözlüğe ekler.
-
+env dosyasındaki satırları ortam değişkeni olarak çalışan programın belleğindeki ortam değişkenleri tablosuna yükler. os.environ adlı sözlük benzeri nesneye
+True/False “dosya bulundu mu, bir şey yüklendi mi” bilgisidir.
 Yani:
-
 Sadece çalışan Python programının içine yazılır.
 Terminale, sisteme ya da başka programlara kalıcı bir şey yazmaz. Program bitince hepsi kaybolur.
-İkisinde de bir şey yazdırması normal: os.environ zaten sistemin kendi ortam değişkenlerini (PATH, HOME, USER vb.) içerir. load_dotenv() sadece bunlara .env’deki satırları ekler. Yani kontrol edeceğin şey “bir şey yazdırıyor mu” değil, “benim değişkenlerim listede var mı”:
+
+Git nedir?
+Git, dosyalarının geçmişini kaydeden bir sürüm kontrol sistemidir.
+Kodunda her önemli değişiklikte bir commit çekersin.
+Eski bir sürüme geri dönebilirsin.
+Neyin, ne zaman, kim tarafından değiştirildiğini görebilirsin.
+Birden fazla kişi aynı projede çakışmadan çalışabilir.
+Denemeler için ayrı dallar (branch) açıp ana koda dokunmadan çalışabilirsin.
 
 
-Adım 2: “Şu anki paket” hangisi?
+Repo (repository) nedir?
+Projenin klasörü ve o klasörün tüm geçmişidir. Bir klasörde git init dediğinde,
+içinde gizli bir .git/ klasörü oluşur. Geçmiş kayıtları orada durur. Bu klasör artık bir repo’dur.
+bash
+git init              # klasörü repo yap
+git add .             # değişiklikleri kayda hazırla
+git commit -m "ilk"   # kaydet
+
+.gitignore nedir?
+Git’e “şu dosyaları takip etme, kaydetme, GitHub’a gönderme” dediğin metin dosyasıdır.
+Proje klasörünün içine .gitignore adıyla koyarsın, her satıra bir kural yazarsın:
+.env
+.venv/
+__pycache__/
+*.pyc
+data/büyük_dosya.csv
+Neden var?
+Gizli bilgiler: .env içinde API anahtarları, şifreler olur. repoya giderse herkes görebilir,
+çalınabilir.En önemli sebep budur.
+Otomatik üretilen dosyalar: __pycache__/, *.pyc gibi dosyalar kodundan zaten yeniden üretilir,
+repoyu şişirir.
+Sanal ortam: .venv/ yüzlerce MB olabilir ve her bilgisayarda poetry install ile yeniden kurulur,
+paylaşmaya gerek yok.
+Büyük veya kişisel dosyalar: Büyük veri setleri, loglar, editör ayarları (.vscode/, .idea/).
+
+
+“Şu anki paket” hangisi?
 
 Kod hangi dosyada yazıyorsa, o dosyanın ait olduğu paket. __init__.py dosyası alchemy/ klasöründe durduğu için, onun “şu anki paketi” alchemy’dir.
 Adım 3: Modül ve paket farkı
@@ -142,5 +182,10 @@ from elements import create_air
 Python elements’i paket içinde değil, repo kökünde (veya sys.path’te) arar. Orada da kök dizindeki elements.py var, yani yanlış dosyayı bulur ve create_fire/create_water gelir, create_air bulunamaz. Senin ilk denemende “bilmiyor” demen bundan.
 import alchemy yazdığında Python alchemy klasörünü bulur ve alchemy/__init__.py dosyasını çalıştırır. Klasör de bir modül nesnesi olur, ve __init__.py içinde ne üretilirse o paketin isim alanına yazılır.
 
-poetry init
-
+kaboom0:
+Burada kilit nokta, Python’da def satırının fonksiyonu çalıştırmaması,
+sadece bir fonksiyon nesnesi oluşturup bir isme bağlamasıdır.
+Python bu satırı gördüğünde sadece şunu yapar: gövdeyi derler (sözdizimi hatası var mı diye bakar ve
+bytecode’a çevirir), bir fonksiyon nesnesi üretir, light_spell_record adına bağlar.
+Gövdedeki kodlar çalıştırılmaz. from .light_validator import ... satırı gövdenin içinde olduğu için,
+fonksiyon çağrılana kadar hiç yürütülmez.
