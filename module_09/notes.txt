@@ -32,24 +32,20 @@ Pydantic and other validators do their thing or you can terminate validation
 immediately, both with a successful value or an error.
 
 rec bir sözlük (dict) olduğu için. * ve ** farklı şeyleri açar.
-
 * : listeyi/tuple’ı açar (sadece değerler)
-python
+
 def topla(a, b):
     return a + b
-
 sayilar = [3, 5]
 topla(*sayilar)      # topla(3, 5) ile aynı
 
 * sadece değerleri sırayla verir. İsim bilgisi yok, sıra önemli.
-
 ** : sözlüğü açar (isim=değer çiftleri)
 python
 bilgi = {"a": 3, "b": 5}
 topla(**bilgi)       # topla(a=3, b=5) ile aynı
 
 ** sözlükteki her anahtarı parametre adı, her değeri o parametrenin değeri yapar.
-
 args = [1, 2, 3]
 f(*args)   # f(1, 2, 3)
 
