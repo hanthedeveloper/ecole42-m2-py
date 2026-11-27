@@ -15,7 +15,7 @@ exercise lives in its own `exN/` directory inside it.
 | 04 | `module04/` | Data Archivist: `open`, `read`, `write`, `sys.stdin`, `sys.stdout`, `sys.stderr`, `with` (context managers) |
 | 05-bis | `module05-bis/` | The Codex: virtual environments (`venv`), `pip` and Poetry, `.env` configuration (`python-dotenv`), packages, `__init__.py`, absolute and relative imports, circular imports |
 | 06-bis | `module06-bis/` | Code Nexus: abstract classes (`ABC`), method overriding, polymorphism, `Protocol` (duck typing), abstract factory, capabilities, abstract strategy |
-| 09 | `module09/` | TODO |
+| 09 | `module09/` | Cosmic Data: data validation with Pydantic (`BaseModel`, `Field`, enums, nested models, `model_validator`, `ValidationError`) |
 | 10 | `module10/` | TODO |
 
 Each module folder has its own `README.md` with the list of exercises.

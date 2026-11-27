@@ -1,39 +1,25 @@
-nutri = 0
-
-loop = 0
-
-def age:
-    loop |= 0b1
-    if loop ==3
-        nutri +=1
-def grow:
-    loop |=2
-    if loop ==3
-        nutri +=1
-
 https://realpython.com/ref/glossary/static-method/
-Python, a static method is a method that belongs to a class but doesn’t operate on an instance 
+a static method is a method that belongs to a class but doesn’t operate on aninstance 
 or the class itself.
-
 You define a static method using the @staticmethod decorator. Static methods don’t receive 
-an implicit self or cls argument. This means they can’t access or modify instance attributes or class attributes. The Python runtime enforces this behavior by not passing the instance or class object as an argument.
-
+an implicit self or cls argument. This means they can’t access or modify instance attributes
+or class attributes. The Python runtime enforces this behavior by not passing the instance
+or class object as an argument.
 You often use static methods for utility functions that logically belong to a class but don’t 
 require access to any instance or class-level data. They help organize code by keeping related
 functionality within a class.
-
 Python'da statik metotları hem sınıf adı üzerinden (Calculator.subtract()) hem de nesne üzerinden (calculator.subtract())
 çağırabilirsiniz. Python buna teknik olarak izin verir.
 
-
 https://www.geeksforgeeks.org/python/classmethod-in-python/
-@classmethod is used to create a method that works with the class instead of an object instance. A class method receives the class itself as the first argument using cls. It is commonly used to access class variables,
+@classmethod is used to create a method that works with the class instead of an object
+instance. A class method receives the class itself as the first argument using cls.
+It is commonly used to access class variables,
 create factory methods and perform operations related to the class.
 
 Whenever the class is being initiated, a method namely __init__() is always executed.
 An __init__() method is used to assign the values to object properties or to perform the
 other method that is required to complete when the object is created.
-
 
 '__module__': '__main__'
 Ne anlama gelir? Bu sınıfın hangi modül içinde tanımlandığını gösterir.
@@ -42,40 +28,37 @@ Eğer bu sınıf başka bir dosyada yazılıp içe aktarılsaydı (import edilse
 burada o dosyanın adı yazardı.
 
 '__firstlineno__': 1
-Ne anlama gelir? Sınıfın Python dosyasında kaç numaralı satırda başladığını
+Sınıfın Python dosyasında kaç numaralı satırda başladığını
 belirtir 
 (class Araba: satırı). Bu bilgi hata ayıklama (debugging) için kullanılır.
 
-'tekerlek_sayisi': 4
-Ne anlama gelir? Sınıf seviyesinde tanımladığınız sınıf niteliğidir (class attribute).
-Bu sınıftan türetilen tüm arabalar (nesneler) bu bilgiye ortak olarak erişebilir.
-
 '__init__': <function Araba.__init__ at 0x727aa0407110>
-Ne anlama gelir? Sınıfın kurucu (yapıcı) fonksiyonudur.
+Sınıfın kurucu (yapıcı) fonksiyonudur.
 Yeni bir nesne üretilirken çalışan __init__ metodunun bellekteki (RAM) adresini
 gösterir.
 
 '__static_attributes__': ('marka', 'renk')
-Ne anlama gelir? Python'un son sürümlerinde gelen bu alan, bu sınıfın
+Python'un son sürümlerinde gelen bu alan, bu sınıfın
 nesnelerinde kullanılacağı baştan bilinen veya optimize edilmek istenen
 statik niteliklerin isimlerini tuple içinde tutar.
 
 '__dict__': <attribute '__dict__' of 'Araba' objects>
-Ne anlama gelir? Söz konusu sınıf nesnelerinin kendi __dict__ alanına erişmeyi
+Söz konusu sınıf nesnelerinin kendi __dict__ alanına erişmeyi
 sağlayan özel bir tanımlayıcıdır (descriptor). Sınıfın kendi sözlüğünün içinde,
 nesnelerin sözlüğüne işaret eden bir referanstır.
 
 '__weakref__': <attribute '__weakref__' of 'Araba' objects>
-Ne anlama gelir? Zayıf referans (weak reference) mekanizması için Python'un
+Zayıf referans (weak reference) mekanizması için Python'un
 sınıfa eklediği özel bir alandır. Çöp toplayıcının (garbage collector) nesneleri
 hafızadan güvenle silmesine yardımcı olur.
 
 '__doc__': None
-Ne anlama gelir? Sınıfın dokümantasyon (açıklama) dizesidir.
+Sınıfın dokümantasyon (açıklama) dizesidir.
 Eğer sınıfın hemen altına üç tırnakla ("""Bu bir araba sınıfıdır""")
 bir açıklama yazsaydınız, None yerine o yazı görünürdü. Şu an açıklama
 yazılmadığı için None (hiçbir şey) değerindedir.
 
+_____________________________________________________________________________________________
 
 import math
 
@@ -92,7 +75,6 @@ type(rose) → <class '__main__.Plant'> çıktısı, rose'un Plant sınıfının
 olduğunu gösterir.
 
 Plant sınıfı, type adlı metaclass'ın bir instance'ıdır. Yani:
-
 rose = Plant(...) → rose, Plant'ın instance'ı
 Plant → type'ın instance'ı
 type → kendi kendinin instance'ı (type(type) is type)
@@ -119,12 +101,13 @@ __dict__, en kısa ve net tanımıyla: Bir Python nesnesinin veya sınıfının 
 tüm nitelikleri (attribute) ve onların değerlerini saklayan yerleşik bir sözlük
 (dictionary) yapısıdır.
 
+______________________________________________________________________________________________
+
 2. Üç argümanla type(): dinamik sınıf oluşturma
 python
 type(name, bases, namespace)
 
 Bu, class anahtar kelimesinin runtime karşılığıdır. Yani:
-
 python
 class Plant:
     def __init__(self, name):
@@ -137,11 +120,8 @@ def __init__(self, name):
     self.name = name
 
 Plant = type("Plant", (object,), {"__init__": __init__})
-
 Parametreler:
-
 name: sınıfın adı (string) → Plant.__name__ olur
 bases: kalıtım alınacak üst sınıfların tuple'ı → (object,), veya (Plant,) gibi
 namespace: sınıfın __dict__'ine gidecek attribute/method'ların dict'i
-
 type() verilen nesnenin hangi sınıfın instance'ı olduğunu döndürür. Saf bir sorgulama işlemidir, yeni bir şey oluşturmaz.
