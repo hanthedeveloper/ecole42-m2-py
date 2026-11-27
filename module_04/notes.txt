@@ -1,21 +1,12 @@
 The open() function takes two parameters; filename, and mode.
-
 There are four different methods (modes) for opening a file:
-
 "r" - Read - Default value. Opens a file for reading, error if the file does not exist
-
 "a" - Append - Opens a file for appending, creates the file if it does not exist
-
 "w" - Write - Opens a file for writing, creates the file if it does not exist
-
 "x" - Create - Creates the specified file, returns an error if the file exists
-
 In addition you can specify if the file should be handled as binary or text mode
-
 "t" - Text - Default value. Text mode
-
 "b" - Binary - Binary mode (e.g. images)
-
 Because "r" for read, and "t" for text are the default values, you do not need to specify them.
 
 fd = open()
@@ -24,36 +15,35 @@ print(fd)
 
 size	Optional. The number of bytes to return. Default -1, which means the whole file.
 Split a string into a list where each word is a list item:
-
 txt = "welcome to the jungle"
-
 x = txt.split()
-
 print(x)
 
-Test: python3 ft_stream_management.py foo > out.txt çalıştır. Hata mesajı ekranda görünüyorsa ve out.txt boşsa (ya da hata mesajını içermiyorsa) doğru kanala yazıyorsun.
+Test: python3 ft_stream_management.py foo > out.txt çalıştır. Hata mesajı ekranda görünüyorsa ve out.txt boşsa
+(ya da hata mesajını içermiyorsa) doğru kanala yazıyorsun.
 
-print("Enter new file name (or empty): ", end="") yazdığında satır sonu olmadığı için Python çıktıyı tamponda bekletebilir ve readline() kullanıcıdan girdi beklerken prompt henüz ekrana çıkmamış olabilir.
+print("Enter new file name (or empty): ", end="") yazdığında satır sonu olmadığı için Python çıktıyı tamponda bekletebilir
+ve readline() kullanıcıdan girdi beklerken prompt henüz ekrana çıkmamış olabilir.
+Python write() dediğinde veriyi hemen diske göndermez, önce RAM'deki bir tampona (buffer) koyar. Gerçek diske yazma işlemi
+daha sonra olur: tampon dolunca, flush() çağrılınca ya da close() sırasında. Bu yüzden write() hızlıdır ve çoğu zaman başarılı döner.
 
-Buffer nedir? Python write() dediğinde veriyi hemen diske göndermez, önce RAM'deki bir tampona (buffer) koyar. Gerçek diske yazma işlemi daha sonra olur: tampon dolunca, flush() çağrılınca ya da close() sırasında. Bu yüzden write() hızlıdır ve çoğu zaman başarılı döner.
-
-When you enter a given context, the context manager’s .__enter__() method allocates the managed resources. When you exit the context, the .__exit__() method releases the resources and cleans up. 
-Why Do We Need Context Managers?
+When you enter a given context, the context manager’s .__enter__() method allocates the managed resources. When you exit the context
+the .__exit__() method releases the resources and cleans up.
 Automatic cleanup: Frees resources like files or connections without manual effort.
 Avoid resource leaks: Ensures proper release, even if errors occur.
 Cleaner code: Replaces verbose try-finally blocks with with.
 Exception-safe: Always performs cleanup, even on exceptions.
 Custom control: Lets you manage any resource using __enter__ and __exit__.
 Evet, dosya nesnesinin __enter__ ve __exit__ metotları her zaman vardır. Bunlar open() ile oluşan nesnenin (io.TextIOWrapper) kendi metotlarıdır, with yazıp yazmaman bunu değiştirmez.
-
-Fark şu: with yazmazsan bu metotlar otomatik çağrılmaz. Onları çağıran şey with'in kendisidir. Sen fd = open(...) yazarsan nesne oluşur, metotlar orada durur ama kimse çağırmaz. Bu yüzden close()'u elle yazman gerekir.
+Fark şu: with yazmazsan bu metotlar otomatik çağrılmaz. Onları çağıran şey with'in kendisidir. Sen fd = open(...) yazarsan nesne oluşur,
+metotlar orada durur ama kimse çağırmaz. Bu yüzden close()'u elle yazman gerekir.
 
 f = open("a.txt")      # __enter__ / __exit__ var ama çağrılmadı
 f.close()              # kapatmayı sen yapıyorsun
 
 with kullanınca Python bu iki metodu senin yerine, doğru zamanda çağırır. Dosya nesnesinin __exit__'i içinde de close() çalışır, yani with = "__exit__ çağrılmasını garanti et" demek.
 
-Bu arada __exit__'in dosya için yaptığı iş close() olduğundan, istersen f.__exit__(None, None, None) yazarak elle de çağırabilirsin ve dosya kapanır. Ama kimse böyle yazmaz, sırf mekanizmayı anlamak için bir bilgi.
+Bu arada __exit__'in dosya için yaptığı iş close() olduğundan, istersen f.__exit__(None, None, None) yazarak elle de çağırabilirsin ve dosya kapanır.
 class ContextManager:
     def __init__(self):
         print('init method called')
@@ -74,11 +64,9 @@ enter method called
 with statement block
 exit method called
 
-Dosya örneğinde: __enter__() dosya nesnesinin kendisini döndürür. Yani with open(...) as f yazınca f, open()'ın döndürdüğü nesneyle aynı nesnedir. Bu yüzden "context manager = dosya nesnesi" gibi düşünmek kolay.
-Neden bunu okudun/anlaman gerekiyor? Şunu göstermek için: with X as Y yazdığında Y, X'in kendisi olmak zorunda değil, X.__enter__() ne döndürürse odur. Dosyalarda aynı nesne çıkıyor, ama genel kural bu.
-
+Dosya örneğinde: __enter__() dosya nesnesinin kendisini döndürür. Yani with open(...) as f yazınca f, open()'ın döndürdüğü nesneyle
+aynı nesnedir. Bu yüzden "context manager = dosya nesnesi" gibi düşünmek kolay.
+with X as Y yazdığında Y, X'in kendisi olmak zorunda değil, X.__enter__()
+ne döndürürse odur. Dosyalarda aynı nesne çıkıyor, ama genel kural bu.
 
 https://docs.python.org/3/builtins/stdtypes.html#contextmanager.__enter__
-
-contextmanager.__exit__(exc_type, exc_val, exc_tb)
-Exit the runtime context and return a Boolean flag indicating if any exception that occurred should be suppressed.
