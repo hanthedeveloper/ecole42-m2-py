@@ -127,75 +127,47 @@ Büyük veya kişisel dosyalar: Büyük veri setleri, loglar, editör ayarları 
 
 “Şu anki paket” hangisi?
 
-Kod hangi dosyada yazıyorsa, o dosyanın ait olduğu paket. __init__.py dosyası alchemy/ klasöründe durduğu için, onun “şu anki paketi” alchemy’dir.
+Kod hangi dosyada yazıyorsa, o dosyanın ait olduğu paket. __init__.py dosyası alchemy/ klasöründe durduğu için,
+onun “şu anki paketi” alchemy’dir.
 Adım 3: Modül ve paket farkı
 Modül = tek bir .py dosyası. (elements.py)
 Paket = içinde modüller olan klasör. (alchemy/)
 
-
 Örnek 1: Tek dosya import etmek
+main.py ::
 
-main.py
-
-python
 import selam
 print(selam.x)
 
 python3 main.py dediğinde adım adım:
-
 Adım 1. Python main.py’yi çalıştırmaya başlar. sys.path[0] = proje/ klasörü olur.
-
 Adım 2. import selam satırına gelir. sys.modules (yüklenmiş modüller listesi) içine bakar. Şu an selam yok.
-
 Adım 3. sys.path içindeki klasörlere sırayla bakar. İlk klasör proje/. Orada selam.py var. Bulundu.
-
 Adım 4. selam.py’yi baştan sona çalıştırır. Ekrana selam.py çalışıyor yazılır. x = 5 satırı çalışır, yani x diye bir değişken oluşur.
-
 Adım 5. Bu dosya çalışırken oluşan her şey (x gibi) bir “modül nesnesi”nin içine konur. Bu nesne sys.modules["selam"] olarak kaydedilir.
-
 Adım 6. main.py içinde selam ismi bu nesneye bağlanır. selam.x yazınca nesnenin içindeki x okunur, yani 5.
 
-Çıktı:
-
+output :
 selam.py çalışıyor
 5
 
-“Modül nesnesi” dediğim şey, dosyanın içinde tanımlanan isimlerin (değişken, fonksiyon) durduğu bir kutu. Dosya çalışınca kutu dolar, sen de selam. diyerek kutunun içinden alırsın.
+____________________________________________________________________________________________________________________________________________-
 
-(lab_env) yvecea@hb:~/ecole42-m2-py/module_05_bis$ python3 ft_alembic_0.py 
-g
-=== Alembic 0 ===
-Using: 'import ...' structure to access elements.py
-Testing create_fire: Fire element created
-(lab_env) yvecea@hb:~/ecole42-m2-py/module_05_bis$ 
-
-
-alembic1’de ise şunu yapıyorsun:
-
-python
 import alchemy
 alchemy.create_air()
 
 Burada alchemy paketinin kendisinde create_air adında bir isim olması lazım. Ama __init__.py içine import alchemy.elements yazarsan, alchemy isim alanına sadece elements adı eklenir. Yani şu çalışır:
-
-python
 alchemy.elements.create_air()
-
 ama şu çalışmaz:
-
-python
 alchemy.create_air()
-
 from .elements import create_air içindeki nokta “bu paketin kendi içindeki elements” demek (relative import). Noktasız yazarsan:
-
-python
 from elements import create_air
 
-Python elements’i paket içinde değil, repo kökünde (veya sys.path’te) arar. Orada da kök dizindeki elements.py var, yani yanlış dosyayı bulur ve create_fire/create_water gelir, create_air bulunamaz. Senin ilk denemende “bilmiyor” demen bundan.
+Python elements’i paket içinde değil, sys.path’te arar. Orada da kök dizindeki elements.py var, yani yanlış dosyayı bulur ve create_fire/create_water gelir, create_air bulunamaz.
 import alchemy yazdığında Python alchemy klasörünü bulur ve alchemy/__init__.py dosyasını çalıştırır. Klasör de bir modül nesnesi olur, ve __init__.py içinde ne üretilirse o paketin isim alanına yazılır.
 
 kaboom0:
-Burada kilit nokta, Python’da def satırının fonksiyonu çalıştırmaması,
+Burada kilit nokta, Python’da def satırının fonksiyonu ÇALIŞTIRMAMASI,
 sadece bir fonksiyon nesnesi oluşturup bir isme bağlamasıdır.
 Python bu satırı gördüğünde sadece şunu yapar: gövdeyi derler (sözdizimi hatası var mı diye bakar ve
 bytecode’a çevirir), bir fonksiyon nesnesi üretir, light_spell_record adına bağlar.
